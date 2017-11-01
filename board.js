@@ -256,6 +256,7 @@ function move(spot) {
         alert("ERROR: Column is full!");
     }
     
+    // TODO(cmaxcy): Remove turn updating on erroneous column entry
     update();
 }
 
@@ -285,6 +286,7 @@ function moveRandom() {
 	disc.innerHTML = "<h3>Ai Currently Playing.</h3>";
 	
     // Move randomly until valid move found
+    // TODO(cmaxcy): Investigate lack of first column choice
     while (!board.move(Math.round(Math.random()*7) + 1)) {}
 
     update();
