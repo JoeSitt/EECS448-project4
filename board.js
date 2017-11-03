@@ -36,14 +36,14 @@ class Game {
     */
     reset() {
         this.grid = this.makeGrid(6, 7, 0);
-		
+
 		//modified to make the front end work
 		var elementbut  = document.getElementsByTagName("button");
 		for (var i = 0; i < (elementbut.length); i++) {
-				elementbut[i].value = 0;		
+				elementbut[i].value = 0;
 		}
 		turns.innerHTML = "<h3>Player 1's Turn</h3>";
-		
+
         if (this.player1Starts) {
             this.turn = 1;
         } else {
@@ -234,7 +234,7 @@ function state() {
 */
 function move(spot) {
     if (board.getState() != -1) {
-		
+
 		//modified to make the frontend work
 		var disc = document.getElementById("turns");
 		if (board.getState() == 1) {
@@ -248,14 +248,14 @@ function move(spot) {
 		}
 		var gameEnd = document.getElementById("resetboard");
 		gameEnd.value = 1;
-		
+
         return;
     }
 
     if (!board.move(spot)) {
         alert("ERROR: Column is full!");
     } else {
-	update();
+        update();
     }
 }
 
@@ -264,7 +264,7 @@ function move(spot) {
 */
 function moveRandom() {
     if (board.getState() != -1) {
-		
+
         //modified to make the frontend work
 		var disc = document.getElementById("turns");
 		if (board.getState() == 1) {
@@ -278,16 +278,23 @@ function moveRandom() {
 		}
 		var gameEnd = document.getElementById("resetboard");
 		gameEnd.value = 1;
-		
+
         return;
     }
 	var disc = document.getElementById("turns");
 	disc.innerHTML = "<h3>Ai Currently Playing.</h3>";
-	
+
     // Move randomly until valid move found
-    while (!board.move(Math.round(Math.random()*7))) {}
+    while (!board.move(getRandInt(0, 7))) {}
 
     update();
+}
+
+/**
+* Returns a ranom int in the range [start, end)
+*/
+function getRandInt(start, end) {
+    return start + Math.floor(Math.random() * (end - start));
 }
 
 /**
