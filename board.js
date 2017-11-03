@@ -254,10 +254,9 @@ function move(spot) {
 
     if (!board.move(spot)) {
         alert("ERROR: Column is full!");
+    } else {
+	update();
     }
-    
-    // TODO(cmaxcy): Remove turn updating on erroneous column entry
-    update();
 }
 
 /**
@@ -286,8 +285,7 @@ function moveRandom() {
 	disc.innerHTML = "<h3>Ai Currently Playing.</h3>";
 	
     // Move randomly until valid move found
-    // TODO(cmaxcy): Investigate lack of first column choice
-    while (!board.move(Math.round(Math.random()*7) + 1)) {}
+    while (!board.move(Math.round(Math.random()*7))) {}
 
     update();
 }
@@ -320,6 +318,8 @@ function update() {
         }
     }
 }
+
+// TODO: Prevent turn switch on illegal (full column) move
 
 //added the buttons function
 function dropDisc(x) {
