@@ -1,4 +1,32 @@
-/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: board.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: board.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
 * Encapsulates a game of Connect-4
 *
 * Contains an int[][] representing the game board. The grid is an array of rows,
@@ -39,10 +67,10 @@ class Game {
 
 		//modified to make the front end work
 		var elementbut  = document.getElementsByTagName("button");
-		for (var i = 0; i < (elementbut.length); i++) {
+		for (var i = 0; i &lt; (elementbut.length); i++) {
 				elementbut[i].value = 0;
 		}
-		turns.innerHTML = "<h3>Player 1's Turn</h3>";
+		turns.innerHTML = "&lt;h3>Player 1's Turn&lt;/h3>";
 
         if (this.player1Starts) {
             this.turn = 1;
@@ -56,9 +84,9 @@ class Game {
     */
     makeGrid(height, width, content) {
         var outArr = [];
-        for (var i = 0; i < height; i++) {
+        for (var i = 0; i &lt; height; i++) {
             var row = [];
-            for (var j = 0; j < width; j++) {
+            for (var j = 0; j &lt; width; j++) {
                 row.push(content);
             }
             outArr.push(row);
@@ -88,7 +116,7 @@ class Game {
         if (this.grid[0][spot] != 0) {
             return false;
         } else {
-            for (var j = 0; j < 6; j++) {
+            for (var j = 0; j &lt; 6; j++) {
                 if (this.grid[j][spot] != 0) {
                     this.grid[j - 1][spot] = this.turn;
                     this.switchTurn();
@@ -107,9 +135,9 @@ class Game {
     */
     checkMajorDiags(player) {
 
-        for (var i = 0; i < 3; i++) {
-            for (var j = 0; j < 4; j++) {
-                if (this.grid[i][j] == player && this.grid[i + 1][j + 1] == player && this.grid[i + 2][j + 2] == player && this.grid[i + 3][j + 3] == player) {
+        for (var i = 0; i &lt; 3; i++) {
+            for (var j = 0; j &lt; 4; j++) {
+                if (this.grid[i][j] == player &amp;&amp; this.grid[i + 1][j + 1] == player &amp;&amp; this.grid[i + 2][j + 2] == player &amp;&amp; this.grid[i + 3][j + 3] == player) {
                     return true;
                 }
             }
@@ -122,9 +150,9 @@ class Game {
     * Check '/' diagonals of four for players.
     */
     checkMinorDiags(player) {
-        for (var i = 0; i < 3; i++) {
-            for (var j = 0; j < 4; j++) {
-                if (this.grid[i + 3][j] == player && this.grid[i + 2][j + 1] == player && this.grid[i + 1][j + 2] == player && this.grid[i][j + 3] == player) {
+        for (var i = 0; i &lt; 3; i++) {
+            for (var j = 0; j &lt; 4; j++) {
+                if (this.grid[i + 3][j] == player &amp;&amp; this.grid[i + 2][j + 1] == player &amp;&amp; this.grid[i + 1][j + 2] == player &amp;&amp; this.grid[i][j + 3] == player) {
                     return true;
                 }
             }
@@ -138,9 +166,9 @@ class Game {
     */
     checkRows(player) {
 
-        for (var i = 0; i < 6; i++) {
-            for (var j = 0; j < 4; j++) {
-                if (this.grid[i][j] == player && this.grid[i][j + 1] == player && this.grid[i][j + 2] == player && this.grid[i][j + 3] == player) {
+        for (var i = 0; i &lt; 6; i++) {
+            for (var j = 0; j &lt; 4; j++) {
+                if (this.grid[i][j] == player &amp;&amp; this.grid[i][j + 1] == player &amp;&amp; this.grid[i][j + 2] == player &amp;&amp; this.grid[i][j + 3] == player) {
                     return true;
                 }
             }
@@ -154,9 +182,9 @@ class Game {
     */
     checkCols(player) {
 
-        for (var i = 0; i < 3; i++) {
-            for (var j = 0; j < 7; j++) {
-                if (this.grid[i][j] == player && this.grid[i + 1][j] == player && this.grid[i + 2][j] == player && this.grid[i + 3][j] == player) {
+        for (var i = 0; i &lt; 3; i++) {
+            for (var j = 0; j &lt; 7; j++) {
+                if (this.grid[i][j] == player &amp;&amp; this.grid[i + 1][j] == player &amp;&amp; this.grid[i + 2][j] == player &amp;&amp; this.grid[i + 3][j] == player) {
                     return true;
                 }
             }
@@ -169,7 +197,7 @@ class Game {
     * Returns whether or not the game is in a tied state.
     */
     isTie() {
-        for (var i = 0; i < 6; i++) {
+        for (var i = 0; i &lt; 6; i++) {
             if (this.grid[0][i] == 0) {
                 return false;
             }
@@ -238,13 +266,13 @@ function move(spot) {
 		//modified to make the frontend work
 		var disc = document.getElementById("turns");
 		if (board.getState() == 1) {
-			disc.innerHTML = "<h3>Game Over. Player 1 Won.</h3>";
+			disc.innerHTML = "&lt;h3>Game Over. Player 1 Won.&lt;/h3>";
 		}
 		else if (board.getState() == 2) {
-			disc.innerHTML = "<h3>Game Over. Player 2 Won.</h3>";
+			disc.innerHTML = "&lt;h3>Game Over. Player 2 Won.&lt;/h3>";
 		}
 		else {
-			disc.innerHTML = "<h3>Game Over. Game Tied.</h3>";
+			disc.innerHTML = "&lt;h3>Game Over. Game Tied.&lt;/h3>";
 		}
 		var gameEnd = document.getElementById("resetboard");
 		gameEnd.value = 1;
@@ -268,13 +296,13 @@ function moveRandom() {
         //modified to make the frontend work
 		var disc = document.getElementById("turns");
 		if (board.getState() == 1) {
-			disc.innerHTML = "<h3>Game Over. Ai 1 Won.</h3>";
+			disc.innerHTML = "&lt;h3>Game Over. Ai 1 Won.&lt;/h3>";
 		}
 		else if (board.getState() == 2) {
-			disc.innerHTML = "<h3>Game Over. Ai 2 Won.</h3>";
+			disc.innerHTML = "&lt;h3>Game Over. Ai 2 Won.&lt;/h3>";
 		}
 		else {
-			disc.innerHTML = "<h3>Game Over. Game Tied.</h3>";
+			disc.innerHTML = "&lt;h3>Game Over. Game Tied.&lt;/h3>";
 		}
 		var gameEnd = document.getElementById("resetboard");
 		gameEnd.value = 1;
@@ -282,7 +310,7 @@ function moveRandom() {
         return;
     }
 	var disc = document.getElementById("turns");
-	disc.innerHTML = "<h3>Ai Currently Playing.</h3>";
+	disc.innerHTML = "&lt;h3>Ai Currently Playing.&lt;/h3>";
 
     // Move randomly until valid move found
     while (!board.move(getRandInt(0, 7))) {}
@@ -301,8 +329,8 @@ function getRandInt(start, end) {
 * Updates frontend board repsentation according to Game object.
 */
 function update() {
-    for (var i = 0; i < 6; i++) {
-        for (var j = 0; j < 7; j++) {
+    for (var i = 0; i &lt; 6; i++) {
+        for (var j = 0; j &lt; 7; j++) {
             var b = document.getElementById("b" + i + j);
             var r = document.getElementById("r" + i + j);
             var n = document.getElementById("n" + i + j);
@@ -338,67 +366,67 @@ function dropDisc(x) {
 	if (gameEnd.value != 1) {
 	if (x == 1) {
 		var fir = document.getElementById("first");
-		if (fir.value < 6) {
+		if (fir.value &lt; 6) {
 			check = true;
 			fir.value++;
 		}
 	}
 	else if (x == 2) {
 		var sec = document.getElementById("second");
-		if (sec.value < 6) {
+		if (sec.value &lt; 6) {
 			check = true;
 			sec.value++;
 		}
 	}
 	else if (x == 3) {
 		var thi = document.getElementById("third");
-		if (thi.value < 6) {
+		if (thi.value &lt; 6) {
 			check = true;
 			thi.value++;
 		}
 	}
 	else if (x == 4) {
 		var fou = document.getElementById("fourth");
-		if (fou.value < 6) {
+		if (fou.value &lt; 6) {
 			check = true;
 			fou.value++;
 		}
 	}
 	else if (x == 5) {
 		var fif = document.getElementById("fifth");
-		if (fif.value < 6) {
+		if (fif.value &lt; 6) {
 			check = true;
 			fif.value++;
 		}
 	}
 	else if (x == 6) {
 		var six = document.getElementById("sixth");
-		if (six.value < 6) {
+		if (six.value &lt; 6) {
 			check = true;
 			six.value++;
 		}
 	}
 	else {
 		var sev = document.getElementById("seventh");
-		if (sev.value < 6) {
+		if (sev.value &lt; 6) {
 			check = true;
 			sev.value++;
 		}
 	}
-	if (((disc.value % 2) == 1) && check) {
+	if (((disc.value % 2) == 1) &amp;&amp; check) {
 		move(x - 1);
-		disc.innerHTML = "<h3>Player 1's Turn</h3>";
+		disc.innerHTML = "&lt;h3>Player 1's Turn&lt;/h3>";
 		disc.value++;
 		getWinner();
 	}
 	else if (check) {
 		move(x - 1);
-		disc.innerHTML = "<h3>Player 2's Turn</h3>";
+		disc.innerHTML = "&lt;h3>Player 2's Turn&lt;/h3>";
 		disc.value++;
 		getWinner();
 	}
 	if (disc.value == 42) {
-		disc.innerHTML = "<h3>Game Over.</h3>";
+		disc.innerHTML = "&lt;h3>Game Over.&lt;/h3>";
 	}
 	}
 	return;
@@ -414,49 +442,49 @@ function fightAi(x) {
 	if (gameEnd.value != 1) {
 	if (x == 1) {
 		var fir = document.getElementById("first");
-		if (fir.value < 6) {
+		if (fir.value &lt; 6) {
 			check = true;
 			fir.value++;
 		}
 	}
 	else if (x == 2) {
 		var sec = document.getElementById("second");
-		if (sec.value < 6) {
+		if (sec.value &lt; 6) {
 			check = true;
 			sec.value++;
 		}
 	}
 	else if (x == 3) {
 		var thi = document.getElementById("third");
-		if (thi.value < 6) {
+		if (thi.value &lt; 6) {
 			check = true;
 			thi.value++;
 		}
 	}
 	else if (x == 4) {
 		var fou = document.getElementById("fourth");
-		if (fou.value < 6) {
+		if (fou.value &lt; 6) {
 			check = true;
 			fou.value++;
 		}
 	}
 	else if (x == 5) {
 		var fif = document.getElementById("fifth");
-		if (fif.value < 6) {
+		if (fif.value &lt; 6) {
 			check = true;
 			fif.value++;
 		}
 	}
 	else if (x == 6) {
 		var six = document.getElementById("sixth");
-		if (six.value < 6) {
+		if (six.value &lt; 6) {
 			check = true;
 			six.value++;
 		}
 	}
 	else {
 		var sev = document.getElementById("seventh");
-		if (sev.value < 6) {
+		if (sev.value &lt; 6) {
 			check = true;
 			sev.value++;
 		}
@@ -465,7 +493,7 @@ function fightAi(x) {
 		move(x - 1);
 		getWinner();
 		moveRandom();
-		disc.innerHTML = "<h3>Player 1's Turn</h3>";
+		disc.innerHTML = "&lt;h3>Player 1's Turn&lt;/h3>";
 		getWinner();
 	}
 	}
@@ -480,15 +508,38 @@ function getWinner() {
 	var gameEnd = document.getElementById("resetboard");
 	if (board.getState() != -1) {
 		if (board.getState() == 1) {
-			disc.innerHTML = "<h3>Game Over. Player 1 Won.</h3>";
+			disc.innerHTML = "&lt;h3>Game Over. Player 1 Won.&lt;/h3>";
 		}
 		else if (board.getState() == 2) {
-			disc.innerHTML = "<h3>Game Over. Player 2 Won.</h3>";
+			disc.innerHTML = "&lt;h3>Game Over. Player 2 Won.&lt;/h3>";
 		}
 		else {
-			disc.innerHTML = "<h3>Game Over. Game Tied.</h3>";
+			disc.innerHTML = "&lt;h3>Game Over. Game Tied.&lt;/h3>";
 		}
 		gameEnd.value = 1;
 	}
 	return;
 }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Game.html">Game</a></li></ul><h3>Global</h3><ul><li><a href="global.html#dropDisc">dropDisc</a></li><li><a href="global.html#fightAi">fightAi</a></li><li><a href="global.html#getRandInt">getRandInt</a></li><li><a href="global.html#getWinner">getWinner</a></li><li><a href="global.html#move">move</a></li><li><a href="global.html#moveRandom">moveRandom</a></li><li><a href="global.html#reset">reset</a></li><li><a href="global.html#state">state</a></li><li><a href="global.html#update">update</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat Nov 04 2017 16:42:48 GMT-0700 (PDT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

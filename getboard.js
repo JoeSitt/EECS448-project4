@@ -1,10 +1,13 @@
-	function Create() {
+/**
+* Create's game board.
+*/
+function Create() {
 	var choice = document.getElementsByName("q1");
 	var picked;
 	for (var i = 0; i < choice.length; i++) {
 		if (choice[i].checked) {
-		picked = choice[i].value;
-        break;
+			picked = choice[i].value;
+			break;
 		}
 	}
 	var buttons = '<br><center><button id="first" value="0" onclick="dropDisc(1)">First Column.</button><button id="second" value="0" onclick="dropDisc(2)">Second Column.</button><button id="third" value="0" onclick="dropDisc(3)">Third Column.</button><button id="fourth" value="0" onclick="dropDisc(4)">Fourth Column.</button><button id="fifth" value="0" onclick="dropDisc(5)">Fifth Column.</button><button id="sixth" value="0" onclick="dropDisc(6)">Sixth Column.</button><button id="seventh" value="0" onclick="dropDisc(7)">Seventh Column.</button><br><br><button id="resetboard" value="0" onclick="reset()">Reset Board.</button><br></center>';
@@ -31,25 +34,25 @@
 	tableE.style.border = "1px solid black";
 	tableE.id = "Table";
 	/*var imge = document.createElement("img");
-       imge.src = "https://people.eecs.ku.edu/~j024s900/project3/nodot.png";
-       imge.height = "50"; 
-       imge.width = "50";
-      
+	imge.src = "https://people.eecs.ku.edu/~j024s900/project3/nodot.png";
+	imge.height = "50";
+	imge.width = "50";
+
 	var imge1 = document.createElement("img");
-	   imge1.src = "https://people.eecs.ku.edu/~j024s900/project3/bdot.png";
-       imge1.height = "50";
-       imge1.width = "50";
-       imge1.hidden = "1";
-	   
-    var imge2 = document.createElement("img");   
-	   imge2.src = "https://people.eecs.ku.edu/~j024s900/project3/reddot.png";
-       imge2.height = "50";
-       imge2.width = "50";
-       imge2.hidden = "1";*/
-	   
+	imge1.src = "https://people.eecs.ku.edu/~j024s900/project3/bdot.png";
+	imge1.height = "50";
+	imge1.width = "50";
+	imge1.hidden = "1";
+
+	var imge2 = document.createElement("img");
+	imge2.src = "https://people.eecs.ku.edu/~j024s900/project3/reddot.png";
+	imge2.height = "50";
+	imge2.width = "50";
+	imge2.hidden = "1";*/
+
 	for (var i = 0; i < 6; i++) {
 		var row = tableE.insertRow(-1);
-		for (var j = 0; j < 7; j++) {	
+		for (var j = 0; j < 7; j++) {
 			var id = "n" + i + j;
 			var id1 = "b" + i + j;
 			var id2 = "r" + i + j;
@@ -62,19 +65,19 @@
 		}
 	}
 	document.body.appendChild(tableE);
-	
+
 	if (gameMode == 1) {
 		document.body.innerHTML += buttons1;
 	}
 	else if (gameMode == 2) {
-		document.body.innerHTML += buttons;		
+		document.body.innerHTML += buttons;
 	}
 	else {
-			for (var i = 0; i < 42; i++) {
+		for (var i = 0; i < 42; i++) {
 			(function (i) {
 				setTimeout(moveRandom, 1000*i);
 			})(i);
 		}
 	}
-	
-	}		
+
+}
