@@ -1,3 +1,5 @@
+PROJECT 3
+
 Implementation of Game front end: Lets users choose what game mode to play, and shows the game board based on user's choice. 2 hours
 Implementation of Board front end and back end: Generates game board based on user's choice so users can play the game. The board interacts with the back end and shows the results. 16 hours
 Design on the website: 3 hours
@@ -11,3 +13,9 @@ Auto documentation: Researched techniques to produce auto documented code. Updat
 Original board design: Designed the original board and made images for it to work. 4 hours
 State diagram and use case diagram: 1 hour
 Bug testing: Found bugs like Ai glitch or full column vs Ai glitch, etc. 1 hour
+
+PROJECT 4
+
+One move lookahead AI: 4 hours
+User specified max depth brute force tree search: 15 hours
+Alpha beta pruning algorithm for decision tree pruning: 10 hours
