@@ -269,15 +269,18 @@ function moveRandom() {
 		var disc = document.getElementById("turns");
 		if (board.getState() == 1) {
 			disc.innerHTML = "<h3>Game Over. Ai 1 Won.</h3>";
+			window.clearInterval(timer);
 		}
 		else if (board.getState() == 2) {
 			disc.innerHTML = "<h3>Game Over. Ai 2 Won.</h3>";
+			window.clearInterval(timer);
 		}
 		else {
 			disc.innerHTML = "<h3>Game Over. Game Tied.</h3>";
+			window.clearInterval(timer);
 		}
-		var gameEnd = document.getElementById("resetboard");
-		gameEnd.value = 1;
+		//var gameEnd = document.getElementById("resetboard");
+		//gameEnd.value = 1;
 
         return;
     }
@@ -490,5 +493,11 @@ function getWinner() {
 		}
 		gameEnd.value = 1;
 	}
+	return;
+}
+
+var timer;
+function AivsAi() {
+	timer = window.setInterval(moveRandom, 1000);
 	return;
 }
