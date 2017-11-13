@@ -73,11 +73,12 @@ function Create() {
 		document.body.innerHTML += buttons;
 	}
 	else {
-		for (var i = 0; i < 42; i++) {
+		/*for (var i = 0; i < 42; i++) {
 			(function (i) {
 				setTimeout(moveRandom, 1000*i);
 			})(i);
-		}
+		}*/
+		AivsAi();
 	}
 
 }
