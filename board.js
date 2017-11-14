@@ -516,6 +516,29 @@ function AivsAi() {
 }
 
 /**
+* Returns a spot to move to if next player whose turn it is can win.
+* If not, returns -1
+*/
+function getMoveLookahead(game) {
+
+    // Store whose turn it is
+    var thisPlayer = game.turn;
+
+    // Look for winning move, returning if found
+    for (var i = 0; i < 7; i++) {
+        var gameCopy = game.getCopy();
+        if (gameCopy.move(i)) {
+            if (gameCopy.getState() == thisPlayer) {
+                return i;
+            }
+        }
+    }
+
+    // No immediate winning move found
+    return -1;
+}
+
+/**
 * Verifies that Game intsance can be correctly instantiated.
 */
 QUnit.test("Game constructor(...) test", function(assert) {
@@ -595,4 +618,62 @@ QUnit.test("Game getCopy() test", function(assert) {
   ];
   testGameCopy = testGame.getCopy();
   assert.deepEqual(testGame.grid, testGameCopy.grid, "Verify that in progress game can successfully be copied");
+});
+
+/**
+* Verifies that Game can be succesfully copied.
+*/
+QUnit.test("getMoveLookahead(...) test", function(assert) {
+
+  var testGame = new Game(true);
+  var testGrid = [
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [1, 0, 2, 0, 0, 0, 0]
+  ];
+  testGame.grid = testGrid;
+  assert.equal(getMoveLookahead(testGame), -1, "Verify that getMoveLookahead(...) correctly indicates that no one move win is possible");
+  assert.deepEqual(testGame.grid, testGrid, "Verify that testGame's grid is left unchanged");
+
+  var testGame = new Game(true);
+  var testGrid = [
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0]
+  ];
+  testGame.grid = testGrid;
+  assert.equal(getMoveLookahead(testGame), -1, "Verify that getMoveLookahead(...) correctly indicates that no one move win is possible");
+  assert.deepEqual(testGame.grid, testGrid, "Verify that testGame's grid is left unchanged");
+
+  var testGame = new Game(true);
+  var testGrid = [
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 1, 0],
+      [0, 0, 0, 0, 0, 1, 0],
+      [0, 0, 2, 0, 2, 1, 2]
+  ];
+  testGame.grid = testGrid;
+  assert.equal(getMoveLookahead(testGame), 5, "Verify that getMoveLookahead(...) correctly indicates that a winning move is possible");
+  assert.deepEqual(testGame.grid, testGrid, "Verify that testGame's grid is left unchanged");
+
+  var testGame = new Game(false);
+  var testGrid = [
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 1, 0],
+      [0, 0, 0, 0, 0, 1, 0],
+      [0, 0, 2, 0, 2, 1, 2]
+  ];
+  testGame.grid = testGrid;
+  assert.equal(getMoveLookahead(testGame), -1, "Verify that getMoveLookahead(...) correctly indicates that no one move win is possible");
+  assert.deepEqual(testGame.grid, testGrid, "Verify that testGame's grid is left unchanged");
 });
