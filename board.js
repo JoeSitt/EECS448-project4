@@ -23,6 +23,19 @@ class Game {
     }
 
     /**
+    * Returns separate copy of game instance.
+    */
+    getCopy() {
+        var gameCopy = new Game(this.player1Starts);
+        for (var i = 0; i < this.grid.length; i++) {
+            for (var j = 0; j < this.grid[0].length; j++) {
+                gameCopy.grid[i][j] = this.grid[i][j];
+            }
+        }
+        return gameCopy;
+    }
+
+    /**
     * Returns the transpose of the grid. As grid items are accessed via,
     * grid[row][column], the returned tranpose can have its items accessed via
     * returned_grid[column][row]
@@ -501,3 +514,85 @@ function AivsAi() {
 	timer = window.setInterval(moveRandom, 1000);
 	return;
 }
+
+/**
+* Verifies that Game intsance can be correctly instantiated.
+*/
+QUnit.test("Game constructor(...) test", function(assert) {
+  var expectedGrid = [
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0]
+  ];
+  var testGame = new Game(true);
+  assert.deepEqual(testGame.grid, expectedGrid, "Verify that game grid is correctly initialized");
+  assert.ok(testGame.player1Starts, "Verify that player 1 can be correctly set to start");
+
+  var testGame = new Game(false);
+  assert.notOk(testGame.player1Starts, "Verify that player 2 can be correctly set to start");
+});
+
+/**
+* Verifies that Game updates after valid moves are done.
+*/
+QUnit.test("Game move(...) test", function(assert) {
+  var expectedGrid = [
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0]
+  ];
+  var testGame = new Game(true);
+  assert.deepEqual(testGame.grid, expectedGrid, "Verify game grid before moves are done");
+
+  assert.ok(testGame.move(0), "Verify move method correctly returns that move can be done");
+  var expectedGrid = [
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [1, 0, 0, 0, 0, 0, 0]
+  ];
+  assert.deepEqual(testGame.grid, expectedGrid, "Verify game grid after first move is done");
+
+  assert.ok(testGame.move(2), "Verify move method correctly returns that move can be done");
+  var expectedGrid = [
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [1, 0, 2, 0, 0, 0, 0]
+  ];
+  assert.deepEqual(testGame.grid, expectedGrid, "Verify game grid after second move is done");
+});
+
+/**
+* Verifies that Game can be succesfully copied.
+*/
+QUnit.test("Game getCopy() test", function(assert) {
+
+  var testGame = new Game(true);
+  var testGameCopy = testGame.getCopy();
+  assert.deepEqual(testGame.grid, testGameCopy.grid, "Verify that copied game instance has the same grid as original");
+
+  testGame.move(0);
+  assert.notDeepEqual(testGame.grid, testGameCopy.grid, "Verify that copied game instance is not updated when original is");
+
+  testGame.grid = [
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [1, 0, 2, 0, 0, 0, 0]
+  ];
+  testGameCopy = testGame.getCopy();
+  assert.deepEqual(testGame.grid, testGameCopy.grid, "Verify that in progress game can successfully be copied");
+});
