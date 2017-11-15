@@ -1,5 +1,5 @@
 /**
-* Verifies that Game intsance can be correctly instantiated.
+* Verifies that Game can be correctly instantiated.
 */
 QUnit.test("Game constructor(...) test", function(assert) {
   var expectedGrid = [
@@ -136,4 +136,58 @@ QUnit.test("getMoveLookahead(...) test", function(assert) {
   testGame.grid = testGrid;
   assert.equal(getMoveLookahead(testGame), -1, "Verify that getMoveLookahead(...) correctly indicates that no one move win is possible");
   assert.deepEqual(testGame.grid, testGrid, "Verify that testGame's grid is left unchanged");
+});
+
+/**
+* Verifies that game state can be correctly determined.
+*/
+QUnit.test("Game getState() test", function(assert) {
+
+  var testGame = new Game(true);
+  var testGrid = [
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0]
+  ];
+  testGame.grid = testGrid;
+  assert.equal(testGame.getState(), -1, "Verify that empty board can have game state identified");
+
+  var testGame = new Game(true);
+  var testGrid = [
+      [1, 2, 0, 0, 0, 0, 0],
+      [2, 1, 0, 0, 0, 0, 0],
+      [1, 1, 0, 0, 0, 2, 0],
+      [2, 1, 1, 0, 2, 1, 0],
+      [2, 2, 1, 2, 1, 1, 2],
+      [2, 1, 2, 2, 1, 2, 1]
+  ];
+  testGame.grid = testGrid;
+  assert.equal(testGame.getState(), 2, "Verify that board in which player 2 has won can have game state identified");
+
+  var testGame = new Game(true);
+  var testGrid = [
+      [0, 0, 1, 0, 0, 0, 2],
+      [0, 0, 2, 0, 0, 0, 2],
+      [0, 0, 1, 0, 0, 1, 2],
+      [1, 1, 2, 0, 1, 2, 1],
+      [2, 2, 2, 1, 1, 2, 1],
+      [1, 2, 1, 1, 1, 2, 2]
+  ];
+  testGame.grid = testGrid;
+  assert.equal(testGame.getState(), 1, "Verify that board in which player 1 has won can have game state identified");
+
+  var testGame = new Game(true);
+  var testGrid = [
+      [1, 2, 1, 2, 1, 2, 1],
+      [1, 2, 2, 2, 1, 1, 1],
+      [2, 1, 2, 1, 2, 2, 2],
+      [1, 2, 2, 1, 1, 2, 2],
+      [1, 2, 1, 2, 2, 1, 1],
+      [1, 2, 2, 1, 1, 1, 2]
+  ];
+  testGame.grid = testGrid;
+  assert.equal(testGame.getState(), 0, "Verify that tied game can be correctly identified");
 });
