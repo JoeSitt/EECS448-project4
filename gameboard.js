@@ -20,7 +20,7 @@ class Game {
         this.player1Starts = doesPlayer1Start;
         this.grid = this.makeGrid(6, 7, 0);
     }
-	
+
 	/**
     * Returns separate copy of game instance.
     */
@@ -181,9 +181,9 @@ class Game {
     }
 
     /**
-    * Returns whether or not the game is in a tied state.
+    * Returns whether or not the game grid is full.
     */
-    isTie() {
+    isFull() {
         for (var i = 0; i < 6; i++) {
             if (this.grid[0][i] == 0) {
                 return false;
@@ -206,17 +206,23 @@ class Game {
     *  0 : Game has ended and resulted in a tie
     *  1 : Game has ended and resulted in player 1 winning
     *  2 : Game has ended and resulted in player 2 winning
+    *
+    * Throws error in the event that both players 1 and 2 have a winning position.
     */
     getState() {
-        if (this.isTie()) {
-            return 0;
-        } else if (this.hasPlayerWon(1)) {
+        var hasPlayer1Won = this.hasPlayerWon(1);
+        var hasPlayer2Won = this.hasPlayerWon(2);
+
+        if (hasPlayer1Won && hasPlayer2Won) {
+            throw "ERROR in getState(): Both players have won";
+        } else if (hasPlayer1Won) {
             return 1;
-        } else if (this.hasPlayerWon(2)) {
+        } else if (hasPlayer2Won) {
             return 2;
+        } else if (this.isFull()) {
+            return 0;
         } else {
             return -1;
         }
     }
-
 };

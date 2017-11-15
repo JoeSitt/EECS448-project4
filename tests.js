@@ -190,4 +190,45 @@ QUnit.test("Game getState() test", function(assert) {
   ];
   testGame.grid = testGrid;
   assert.equal(testGame.getState(), 0, "Verify that tied game can be correctly identified");
+
+  var testGame = new Game(true);
+  var testGrid = [
+      [1, 2, 1, 2, 1, 2, 2],
+      [1, 2, 2, 2, 1, 1, 1],
+      [2, 1, 2, 1, 1, 2, 2],
+      [1, 2, 2, 1, 1, 2, 2],
+      [1, 2, 1, 2, 2, 1, 1],
+      [1, 2, 2, 1, 1, 1, 2]
+  ];
+  testGame.grid = testGrid;
+  assert.equal(testGame.getState(), 1, "Verify that full gameboard in which player 1 has won can be identified");
+
+  var testGame = new Game(true);
+  var testGrid = [
+      [1, 1, 2, 2, 1, 2, 1],
+      [1, 2, 2, 2, 1, 1, 1],
+      [2, 1, 2, 1, 2, 2, 2],
+      [1, 2, 2, 1, 1, 2, 2],
+      [1, 2, 1, 2, 2, 1, 1],
+      [1, 2, 2, 1, 1, 1, 2]
+  ];
+  testGame.grid = testGrid;
+  assert.equal(testGame.getState(), 2, "Verify that full gameboard in which player 2 has won can be identified");
+
+  var testGame = new Game(true);
+  var testGrid = [
+      [1, 1, 2, 2, 1, 2, 1],
+      [1, 2, 2, 2, 1, 1, 1],
+      [1, 1, 2, 1, 2, 2, 2],
+      [1, 2, 2, 1, 1, 2, 2],
+      [2, 2, 1, 2, 2, 1, 1],
+      [1, 2, 2, 1, 1, 1, 2]
+  ];
+  testGame.grid = testGrid;
+  assert.throws(
+      function() {
+          testGame.getState()
+      },
+      "Verify that exception is thrown when both players 1 and 2 have appeared to have won"
+  );
 });
