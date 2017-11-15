@@ -1,0 +1,86 @@
+div {
+  border-style: inset;
+  border-width: 5px;
+  margin: 10%;
+  text-align: center;
+}
+
+form {
+  border-style: inset;
+  border-width: 2px;
+  margin-left: 30%;
+  margin-right: 30%;
+  text-align: center;
+}
+
+#mpic {
+	height: 100px;
+    width: 100px;
+    position: relative;
+}
+
+table.main {
+  border: 10px solid DarkSlateGrey;
+  border-collapse: collapse;
+  background-color: #f7fbfc
+}
+
+
+table.vanish {
+  border-collapse: collapse;
+}
+
+tr.vanish {
+  border-collapse: collapse;
+}
+
+td.vanish {
+    height: 105px;
+    width: 100px;
+}
+
+tr.main {
+	border-collapse: collapse;
+}
+
+td.main {
+	border: 5px solid #0682a5;
+	height: 105px;
+    width: 100px;
+	border-collapse: collapse;
+}
+
+table {
+    margin-left:auto; 
+    margin-right:auto;
+}
+
+body 
+{
+    background-color: #a9e2f2;
+}
+
+h2, h3, h4 
+{
+    color: DarkSlateGrey;
+    text-align: center;
+    font-family: Lucida Sans Unicode;
+    font-size: 20px;
+} 
+
+.button {
+    background-color: #a9e2f2;
+    border: none;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+}
+
+.button2 {
+    background-color: white; 
+    color: black; 
+    border: 2px solid #008CBA;
+}
