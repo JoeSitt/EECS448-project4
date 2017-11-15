@@ -232,3 +232,56 @@ QUnit.test("Game getState() test", function(assert) {
       "Verify that exception is thrown when both players 1 and 2 have appeared to have won"
   );
 });
+
+/**
+* Verifies that potential moves can be gathered.
+*/
+QUnit.test("getPossibleMoves(...) test", function(assert) {
+    var testGame = new Game(true);
+    var testGrid = [
+        [1, 1, 2, 2, 1, 2, 1],
+        [1, 2, 2, 2, 1, 1, 1],
+        [2, 1, 2, 1, 2, 2, 2],
+        [1, 2, 2, 1, 1, 2, 2],
+        [1, 2, 1, 2, 2, 1, 1],
+        [1, 2, 2, 1, 1, 1, 2]
+    ];
+    testGame.grid = testGrid;
+    assert.deepEqual(getPossibleMoves(testGame), [], "Verify that tied game can correctly have empty list of moves returned");
+
+    var testGame = new Game(true);
+    var testGrid = [
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0]
+    ];
+    testGame.grid = testGrid;
+    assert.deepEqual(getPossibleMoves(testGame), [0, 1, 2, 3, 4, 5, 6], "Verify that empty board has all moves indicated possible");
+
+    var testGame = new Game(true);
+    var testGrid = [
+        [1, 1, 0, 2, 1, 2, 0],
+        [1, 2, 2, 2, 1, 1, 1],
+        [2, 1, 2, 1, 2, 2, 2],
+        [1, 2, 2, 1, 1, 2, 2],
+        [1, 2, 1, 2, 2, 1, 1],
+        [1, 2, 2, 1, 1, 1, 2]
+    ];
+    testGame.grid = testGrid;
+    assert.deepEqual(getPossibleMoves(testGame), [2, 6], "Verify that limited moves can be indicated possible");
+
+    var testGame = new Game(true);
+    var testGrid = [
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 1, 0],
+        [0, 0, 0, 0, 0, 1, 0],
+        [0, 0, 2, 0, 2, 1, 2]
+    ];
+    testGame.grid = testGrid;
+    assert.deepEqual(getPossibleMoves(testGame), [0, 1, 2, 3, 4, 5, 6], "Verify that non-empty, early, game can have all moves indicated possible");
+});

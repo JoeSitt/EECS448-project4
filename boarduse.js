@@ -130,7 +130,7 @@ function dropDisc(x) {
 	var disc = document.getElementById("turns");
 	var check = false;
 	var gameEnd = document.getElementById("resetboard");
-	
+
 	if (gameEnd.value != 1) {
 	if (x == 1) {
 		//var fir = document.getElementById("first");
@@ -283,7 +283,7 @@ function AivsAi() {
 
 /*function moveDisc() {
 	window.clearInterval(timer2);
-	
+
 }*/
 
 /**
@@ -319,7 +319,7 @@ function movein(x) {
 	/*else {
 		topname.innerHTML = '<img src="lblue.png" height="100" width="100">';
 	}*/
-	
+
 }
 
 function moveout(x) {
@@ -425,7 +425,7 @@ function addAiEvent() {
 				cellname.onclick = function (e) { fightAi(7);};
 			}
 		}
-	}	
+	}
 }
 
 /**
@@ -449,4 +449,24 @@ function getMoveLookahead(game) {
 
     // No immediate winning move found
     return -1;
+}
+
+/**
+* Returns a list of potential moves that the player whose turn it is can make.
+*/
+function getPossibleMoves(game) {
+
+	// Catch end game
+	if (game.getState() != -1) {
+		return [];
+	}
+
+	var moveList = [];
+	for (var i = 0; i < 7; i++) {
+		if (game.grid[0][i] == 0) {
+			moveList.push(i);
+		}
+	}
+
+	return moveList;
 }

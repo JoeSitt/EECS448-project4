@@ -184,7 +184,7 @@ class Game {
     * Returns whether or not the game grid is full.
     */
     isFull() {
-        for (var i = 0; i < 6; i++) {
+        for (var i = 0; i < 7; i++) {
             if (this.grid[0][i] == 0) {
                 return false;
             }
