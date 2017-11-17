@@ -429,29 +429,6 @@ function addAiEvent() {
 }
 
 /**
-* Returns a spot to move to if next player whose turn it is can win.
-* If not, returns -1
-*/
-function getMoveLookahead(game) {
-
-    // Store whose turn it is
-    var thisPlayer = game.turn;
-
-    // Look for winning move, returning if found
-    for (var i = 0; i < 7; i++) {
-        var gameCopy = game.getCopy();
-        if (gameCopy.move(i)) {
-            if (gameCopy.getState() == thisPlayer) {
-                return i;
-            }
-        }
-    }
-
-    // No immediate winning move found
-    return -1;
-}
-
-/**
 * Returns a list of potential moves that the player whose turn it is can make.
 */
 function getPossibleMoves(game) {
@@ -469,4 +446,81 @@ function getPossibleMoves(game) {
 	}
 
 	return moveList;
+}
+
+function alphabeta(game, depth, a, b) {
+
+	// If game is over
+	var gameState = game.getState();
+	if (gameState != -1) {
+		if (gameState == 1) {
+			return -1;
+		} else if (gameState == 2) {
+			return 1;
+		} else {
+			return 0;
+		}
+	}
+
+	// If max search depth has been reached
+	if (depth == 0) {
+		return 0;
+	}
+
+	var potentialMoves = getPossibleMoves(game);
+
+	// If maximizing player
+	if (game.turn == 2) {
+		var v = -Infinity;
+		for (var i = 0; i < potentialMoves.length; i++) {
+			var element = potentialMoves[i];
+
+			var gameCopy = game.getCopy();
+			gameCopy.move(element);
+
+			var gameScore = alphabeta(gameCopy, depth - 1, a, b);
+			v = Math.max(v, gameScore);
+			a = Math.max(a, v);
+
+			if (b <= a) {
+				break;
+			}
+		}
+		return v;
+	} else {
+		var v = Infinity;
+		for (var i = 0; i < potentialMoves.length; i++) {
+			var element = potentialMoves[i];
+
+			var gameCopy = game.getCopy();
+			gameCopy.move(element);
+
+			var gameScore = alphabeta(gameCopy, depth - 1, a, b);
+			v = Math.min(v, gameScore);
+			b = Math.min(b, v);
+
+			if (b <= a) {
+				break;
+			}
+		}
+		return v;
+	}
+}
+
+function getNextMove(game, depth) {
+	var potentialMoves = getPossibleMoves(game);
+	var moveScores = [];
+
+	potentialMoves.forEach(function(element) {
+	    var gameCopy = game.getCopy();
+		gameCopy.move(element);
+		var moveScore = alphabeta(gameCopy, depth - 1, -Infinity, Infinity);
+		moveScores.push(moveScore);
+	});
+
+	if (game.turn == 1) {
+		return potentialMoves[moveScores.indexOf(Math.min(...moveScores))];
+	} else {
+		return potentialMoves[moveScores.indexOf(Math.max(...moveScores))];
+	}
 }

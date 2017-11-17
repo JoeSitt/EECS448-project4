@@ -31,6 +31,11 @@ class Game {
                 gameCopy.grid[i][j] = this.grid[i][j];
             }
         }
+        if (this.turn == 1) {
+            gameCopy.turn = 1;
+        } else {
+            gameCopy.turn = 2;
+        }
         return gameCopy;
     }
 
