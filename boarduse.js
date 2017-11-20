@@ -277,9 +277,99 @@ function fightAi(x) {
 */
 var timer;
 function AivsAi() {
-	timer = window.setInterval(moveRandom, 1000);
+	timer = window.setInterval(moveAI, 1000);
 	return;
 }
+
+var Ai1=new left();
+var Ai2=new randobot();
+function moveAI() {
+    // console.log(Ai2);
+    update();
+    Ai1=new left();
+    Ai2=new randobot();
+    //alert(Ai1.name);
+
+  	var disc = document.getElementById("turns");
+  	disc.innerHTML = "<h3>Ai Currently Playing.</h3>";
+
+    // Move randomly until valid move found
+    if (((disc.value % 2) == 1) /*&& check*/) {
+      var game=board;
+      while (!board.move(Ai1.m(game))) {}
+      //move(Ai1.m(game));
+      disc.innerHTML = "<h3>" + Ai1.name + "'s Turn</h3>";
+      disc.value++;
+      getWinner();
+      update();
+      update();
+    }
+    else {
+      var game=board
+      //var test = Ai2.m(game);
+      while (!board.move(Ai2.m(game))) {}
+      //move(Ai2.m(game));
+      disc.innerHTML = "<h3>" + Ai2.name + "'s Turn</h3>";
+      disc.value++;
+      //getWinner();
+
+
+      //     if (board.getState() != -1) {
+			//
+      //         //modified to make the frontend work
+      // 		var disc = document.getElementById("turns");
+      // 		if (board.getState() == 1) {
+      // 			disc.innerHTML = "<h3>Game Over. "+Ai1.name+" Won.</h3>";
+      // 			window.clearInterval(timer);
+      // 		}
+      // 		else if (board.getState() == 2) {
+      // 			disc.innerHTML = "<h3>Game Over. "+Ai1.name+" Won.</h3>";
+      // 			window.clearInterval(timer);
+      // 		}
+      // 		else {
+      // 			disc.innerHTML = "<h3>Game Over. Game Tied.</h3>";
+      // 			window.clearInterval(timer);
+      // 		}
+      // 		//var gameEnd = document.getElementById("resetboard");
+      // 		//gameEnd.value = 1;
+			// 				update();
+      //         return;
+      //     }
+			//
+			//
+      // update();
+    }
+    if (disc.value == 42) {
+      disc.innerHTML = "<h3>Game Over.</h3>";
+    }
+    //while (!board.move(getRandInt(0, 7))) {}
+		if (board.getState() != -1) {
+
+				//modified to make the frontend work
+		var disc = document.getElementById("turns");
+		if (board.getState() == 1) {
+			disc.innerHTML = "<h3>Game Over. "+Ai1.name+" Won.</h3>";
+			window.clearInterval(timer);
+		}
+		else if (board.getState() == 2) {
+			disc.innerHTML = "<h3>Game Over. "+Ai1.name+" Won.</h3>";
+			window.clearInterval(timer);
+		}
+		else {
+			disc.innerHTML = "<h3>Game Over. Game Tied.</h3>";
+			window.clearInterval(timer);
+		}
+		//var gameEnd = document.getElementById("resetboard");
+		//gameEnd.value = 1;
+				update();
+				return;
+		}
+
+update();
+update();
+
+}
+
 
 /*function moveDisc() {
 	window.clearInterval(timer2);
