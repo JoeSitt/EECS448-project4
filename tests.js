@@ -254,6 +254,8 @@ QUnit.test("getPossibleMoves(...) test", function(assert) {
 
 /**
 * Verifies that next move can be found.
+*
+* TODO(cmaxcy): Add tests for random and non-random options
 */
 QUnit.test("getNextMove(...) test", function(assert) {
 
@@ -268,7 +270,20 @@ QUnit.test("getNextMove(...) test", function(assert) {
     ];
     testGame.grid = testGrid;
     assert.equal(testGame.turn, 1, "Verify turn");
-    assert.equal(getNextMove(testGame, 7), 5, "Verify that correct move 1 ahead can be located");
+    assert.equal(getNextMove(testGame, 7, false), 5, "Verify that correct move 1 ahead can be located, selecting first best move");
+
+    var testGame = new Game(true);
+    var testGrid = [
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 1, 0],
+        [0, 0, 0, 0, 0, 1, 0],
+        [0, 0, 2, 0, 2, 1, 2]
+    ];
+    testGame.grid = testGrid;
+    assert.equal(testGame.turn, 1, "Verify turn");
+    assert.equal(getNextMove(testGame, 7, true), 5, "Verify that correct move 1 ahead can be located, selecting randomly from best moves");
 
     var testGame = new Game(true);
     var testGrid = [
@@ -281,7 +296,7 @@ QUnit.test("getNextMove(...) test", function(assert) {
     ];
     testGame.grid = testGrid;
     assert.equal(testGame.turn, 1, "Verify turn");
-    assert.equal(getNextMove(testGame, 7), 0, "Verify that first spot is chosen for empty grid");
+    assert.equal(getNextMove(testGame, 7, false), 0, "Verify first spot will be selected, as empty grid should indicate that all moves are valid");
 
     var testGame = new Game(false);
     var testGrid = [
@@ -294,7 +309,20 @@ QUnit.test("getNextMove(...) test", function(assert) {
     ];
     testGame.grid = testGrid;
     assert.equal(testGame.turn, 2, "Verify turn");
-    assert.equal(getNextMove(testGame, 7), 5, "Verify that correct move 1 ahead can be located");
+    assert.equal(getNextMove(testGame, 7, false), 5, "Verify that correct move 1 ahead can be located, selecting first best move");
+
+    var testGame = new Game(false);
+    var testGrid = [
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 1, 0],
+        [0, 0, 0, 0, 0, 1, 0],
+        [0, 0, 2, 0, 2, 1, 2]
+    ];
+    testGame.grid = testGrid;
+    assert.equal(testGame.turn, 2, "Verify turn");
+    assert.equal(getNextMove(testGame, 7, true), 5, "Verify that correct move 1 ahead can be located, selecting randomly from best moves");
 
     var testGame = new Game(true);
     var testGrid = [
@@ -307,7 +335,7 @@ QUnit.test("getNextMove(...) test", function(assert) {
     ];
     testGame.grid = testGrid;
     assert.equal(testGame.turn, 1, "Verify turn");
-    assert.equal(getNextMove(testGame, 7), 6, "Verify that non-obvious move can be found");
+    assert.equal(getNextMove(testGame, 7, false), 6, "Verify that non-obvious move can be found");
 });
 
 /**
@@ -325,9 +353,9 @@ QUnit.test("Game move() and getCopy() test", function(assert) {
   assert.ok(Infinity > 1, "Verify infinity comparison");
   assert.ok(-Infinity < -1, "Verify infinity comparison");
 
-  var testGame = new Game(true);
-  var testGameCopy = testGame.getCopy();
-  assert.equal(testGame.turn, testGameCopy.turn, "Verify game turn info copied correctly");
-  assert.ok(testGameCopy.move(0), "Verify that move is a success");
-  assert.notEqual(testGame.turn, testGameCopy.turn, "Verify game copy does not retain turn info");
+  // var testGame = new Game(true);
+  // var testGameCopy = testGame.getCopy();
+  // assert.equal(testGame.turn, testGameCopy.turn, "Verify game turn info copied correctly");
+  // assert.ok(testGameCopy.move(0), "Verify that move is a success");
+  // assert.notEqual(testGame.turn, testGameCopy.turn, "Verify game copy does not retain turn info");
 });

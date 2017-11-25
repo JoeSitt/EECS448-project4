@@ -249,43 +249,43 @@ function dropDisc(x) {
 		movein(x - 1);
 		disc.innerHTML = "<h3>Player 1's Turn</h3>";
 		disc.value++;
-		
-		if (down == 0) { 
+
+		if (down == 0) {
 			animateDisc5();
 			setTimeout(function() { move(x - 1); }, 2300);
 			setTimeout(function() { moveout(x - 1); }, 2300);
 			setTimeout(function() { addEvents(); }, 2300);
 			setTimeout(function() { getWinner(); }, 2300);
 		}
-		else if (down == 1) { 
+		else if (down == 1) {
 			animateDisc4();
 			setTimeout(function() { move(x - 1); }, 2000);
 			setTimeout(function() { moveout(x - 1); }, 2000);
 			setTimeout(function() { addEvents(); }, 2000);
 			setTimeout(function() { getWinner(); }, 2000);
 		}
-		else if (down == 2) { 
+		else if (down == 2) {
 			animateDisc3();
 			setTimeout(function() { move(x - 1); }, 1600);
 			setTimeout(function() { moveout(x - 1); }, 1600);
 			setTimeout(function() { addEvents(); }, 1600);
 			setTimeout(function() { getWinner(); }, 1600);
 		}
-		else if (down == 3) { 
+		else if (down == 3) {
 			animateDisc2();
 			setTimeout(function() { move(x - 1); }, 1300);
 			setTimeout(function() { moveout(x - 1); }, 1300);
 			setTimeout(function() { addEvents(); }, 1300);
 			setTimeout(function() { getWinner(); }, 1300);
 		}
-		else if (down == 4) { 
+		else if (down == 4) {
 			animateDisc1();
 			setTimeout(function() { move(x - 1); }, 900);
 			setTimeout(function() { moveout(x - 1); }, 900);
 			setTimeout(function() { addEvents(); }, 900);
 			setTimeout(function() { getWinner(); }, 900);
 		}
-		else { 
+		else {
 			animateDisc0();
 			setTimeout(function() { move(x - 1); }, 500);
 			setTimeout(function() { moveout(x - 1); }, 500);
@@ -298,43 +298,43 @@ function dropDisc(x) {
 		movein(x - 1);
 		disc.innerHTML = "<h3>Player 2's Turn</h3>";
 		disc.value++;
-		
-		if (down == 0) { 
+
+		if (down == 0) {
 			animateDisc5();
 			setTimeout(function() { move(x - 1); }, 2300);
 			setTimeout(function() { moveout(x - 1); }, 2300);
 			setTimeout(function() { addEvents(); }, 2300);
 			setTimeout(function() { getWinner(); }, 2300);
 		}
-		else if (down == 1) { 
+		else if (down == 1) {
 			animateDisc4();
 			setTimeout(function() { move(x - 1); }, 2000);
 			setTimeout(function() { moveout(x - 1); }, 2000);
 			setTimeout(function() { addEvents(); }, 2000);
 			setTimeout(function() { getWinner(); }, 2000);
 		}
-		else if (down == 2) { 
+		else if (down == 2) {
 			animateDisc3();
 			setTimeout(function() { move(x - 1); }, 1600);
 			setTimeout(function() { moveout(x - 1); }, 1600);
 			setTimeout(function() { addEvents(); }, 1600);
 			setTimeout(function() { getWinner(); }, 1600);
 		}
-		else if (down == 3) { 
+		else if (down == 3) {
 			animateDisc2();
 			setTimeout(function() { move(x - 1); }, 1300);
 			setTimeout(function() { moveout(x - 1); }, 1300);
 			setTimeout(function() { addEvents(); }, 1300);
 			setTimeout(function() { getWinner(); }, 1300);
 		}
-		else if (down == 4) { 
+		else if (down == 4) {
 			animateDisc1();
 			setTimeout(function() { move(x - 1); }, 900);
 			setTimeout(function() { moveout(x - 1); }, 900);
 			setTimeout(function() { addEvents(); }, 900);
 			setTimeout(function() { getWinner(); }, 900);
 		}
-		else { 
+		else {
 			animateDisc0();
 			setTimeout(function() { move(x - 1); }, 500);
 			setTimeout(function() { moveout(x - 1); }, 500);
@@ -562,7 +562,7 @@ function movesia(e) {
 function movesoa(e) {
 	moveout(0);
 }
-	
+
 function movesib(e) {
 	movein(1);
 }
@@ -578,7 +578,7 @@ function movesic(e) {
 function movesoc(e) {
 	moveout(2);
 }
-	
+
 function movesid(e) {
 	movein(3);
 }
@@ -586,7 +586,7 @@ function movesid(e) {
 function movesod(e) {
 	moveout(3);
 }
-	
+
 function movesie(e) {
 	movein(4);
 }
@@ -594,7 +594,7 @@ function movesie(e) {
 function movesoe(e) {
 	moveout(4);
 }
-	
+
 function movesif(e) {
 	movein(5);
 }
@@ -602,7 +602,7 @@ function movesif(e) {
 function movesof(e) {
 	moveout(5);
 }
-	
+
 function movesig(e) {
 	movein(6);
 }
@@ -852,7 +852,7 @@ function alphabeta(game, depth, a, b) {
 	}
 }
 
-function getNextMove(game, depth) {
+function getNextMove(game, depth, randomize) {
 	var potentialMoves = getPossibleMoves(game);
 	var moveScores = [];
 
@@ -863,9 +863,71 @@ function getNextMove(game, depth) {
 		moveScores.push(moveScore);
 	});
 
-	if (game.turn == 1) {
-		return potentialMoves[moveScores.indexOf(Math.min(...moveScores))];
-	} else {
-		return potentialMoves[moveScores.indexOf(Math.max(...moveScores))];
+	if (potentialMoves.length != moveScores.length) {
+		console.log("ERROR: potentialMoves does not correspond with moveScores");
 	}
+
+	var bestScore;
+
+	if (game.turn == 1) {
+		// return potentialMoves[moveScores.indexOf(Math.min(...moveScores))];
+		bestScore = Math.min(...moveScores);
+	} else {
+		// return potentialMoves[moveScores.indexOf(Math.max(...moveScores))];
+		bestScore = Math.max(...moveScores);
+	}
+
+	var bestMoves = []
+	for (var i = 0; i < potentialMoves.length; i++) {
+		if (moveScores[i] == bestScore) {
+			bestMoves.push(potentialMoves[i]);
+		}
+	}
+
+	if (randomize) {
+		return bestMoves[getRandInt(0, bestMoves.length)];
+	} else {
+		return bestMoves[0];
+	}
+}
+
+function getNextMove_StrongAI(game) {
+	return getNextMove(game, 4, true);
+}
+
+function getNextMove_WeakAI(game) {
+	return getNextMove(game, 1, true);
+}
+
+function faceOff(rounds, AI1_move_function, AI2_move_function) {
+	var ai1WinCount = 0;
+	var ai2WinCount = 0;
+	var tieCount = 0;
+	for (var i = 0; i < rounds; i++) {
+		var g = new Game(true);
+		while(true) {
+			if (g.getState() != -1) {
+				break;
+			}
+
+			if (g.turn == 1) {
+				g.move(AI1_move_function(g));
+			} else {
+				g.move(AI2_move_function(g));
+			}
+		}
+
+		if (g.getState() == 1) {
+			ai1WinCount += 1;
+		} else if (g.getState() == 2) {
+			ai2WinCount += 1;
+		} else if (g.getState() == 0) {
+			tieCount += 1;
+		} else {
+			console.log("ERROR: game not over");
+		}
+	}
+
+	var outArr = [ai1WinCount, ai2WinCount, tieCount];
+	return outArr;
 }

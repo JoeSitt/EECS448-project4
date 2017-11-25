@@ -35,3 +35,13 @@ class randobot extends Ai{
   }
 
 }
+
+class treeBot extends Ai {
+    constructor() {
+      super();
+      this.m=function(gameboard){
+        return getNextMove(gameboard, 7, true);
+      }
+        this.name="Randobot";
+    }
+}
