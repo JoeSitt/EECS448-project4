@@ -457,8 +457,8 @@ if (picked==3) {
 	 Ai2=new treeBot();
 }
 
-console.log(Ai1);
-console.log(Ai2);
+//console.log(Ai1);
+//console.log(Ai2);
 }
 function moveAI() {
     // console.log(Ai2);
@@ -475,9 +475,10 @@ function moveAI() {
     // Move randomly until valid move found
     if (((disc.value % 2) == 1) /*&& check*/) {
       var game=board;
+			disc.innerHTML = "<h3>" + Ai1.name + "'s Turn</h3>";
       while (!board.move(Ai1.m(game))) {}
+			console.log(Ai1.name+" went");
       //move(Ai1.m(game));
-      disc.innerHTML = "<h3>" + Ai1.name + "'s Turn</h3>";
       disc.value++;
       getWinner();
       update();
@@ -486,9 +487,10 @@ function moveAI() {
     else {
       var game=board
       //var test = Ai2.m(game);
+			disc.innerHTML = "<h3>" + Ai2.name + "'s Turn</h3>";
       while (!board.move(Ai2.m(game))) {}
+			console.log(Ai2.name+" went");
       //move(Ai2.m(game));
-      disc.innerHTML = "<h3>" + Ai2.name + "'s Turn</h3>";
       disc.value++;
       //getWinner();
 
@@ -516,7 +518,7 @@ function moveAI() {
       //     }
 			//
 			//
-      // update();
+       update();
     }
     if (disc.value == 42) {
       disc.innerHTML = "<h3>Game Over.</h3>";
@@ -527,7 +529,7 @@ function moveAI() {
 				//modified to make the frontend work
 		var disc = document.getElementById("turns");
 		if (board.getState() == 1) {
-			disc.innerHTML = "<h3>Game Over. "+Ai1.name+" Won.</h3>";
+			disc.innerHTML = "<h3>Game Over. "+Ai2.name+" Won.</h3>";
 			window.clearInterval(timer);
 		}
 		else if (board.getState() == 2) {
