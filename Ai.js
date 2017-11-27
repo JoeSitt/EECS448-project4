@@ -31,7 +31,7 @@ class randobot extends Ai{
     this.m=function(gameboard){
       return getRandInt(0, 7);
     }
-      this.name="Randobot";
+    this.name="Randobot";
   }
 
 }
@@ -42,6 +42,6 @@ class treeBot extends Ai {
       this.m=function(gameboard){
         return getNextMove(gameboard, 7, true);
       }
-        this.name="Randobot";
+        this.name="Grootbot";
     }
 }

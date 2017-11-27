@@ -421,18 +421,52 @@ function fightAi(x) {
 * AI vs AI
 */
 var timer;
+var qchoice = document.getElementsByName("q1");
+var choice;
+for (var i = 0; i < qchoice.length; i++) {
+	if (qchoice[i].checked) {
+		choice = qchoice[i].value;
+		break;
+	}
+}
 function AivsAi() {
-	timer = window.setInterval(moveRandom, 1000);
+	timer = window.setInterval(moveAI, 1000);
 	return;
 }
 
-var Ai1=new left();
-var Ai2=new randobot();
+var Ai1;
+var Ai2;
+function dermineai(){
+	var qchoice = document.getElementsByName("q1");
+	var choice;
+	for (var i = 0; i < qchoice.length; i++) {
+		if (qchoice[i].checked) {
+			choice = qchoice[i].value;
+			console.log(choice);
+			//break;
+		}
+	}
+if (picked==3) {
+	 Ai1=new randobot();
+	 Ai2=new randobot();
+}else if (picked==6) {
+	 Ai2=new treeBot();
+	 Ai1=new treeBot();
+}else {
+	 Ai1=new randobot();
+	 Ai2=new treeBot();
+}
+
+console.log(Ai1);
+console.log(Ai2);
+}
 function moveAI() {
     // console.log(Ai2);
+		dermineai();
     update();
-    Ai1=new left();
-    Ai2=new randobot();
+		//alert(choice);
+    //Ai1=new left();
+    //Ai2=new randobot();
     //alert(Ai1.name);
 
   	var disc = document.getElementById("turns");
