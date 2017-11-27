@@ -529,11 +529,19 @@ function moveAI() {
 				//modified to make the frontend work
 		var disc = document.getElementById("turns");
 		if (board.getState() == 1) {
-			disc.innerHTML = "<h3>Game Over. "+Ai2.name+" Won.</h3>";
+			if(board.player1Starts){
+				disc.innerHTML = "<h3>Game Over. "+Ai2.name+" Won.</h3>";
+			}else{
+				disc.innerHTML = "<h3>Game Over. "+Ai1.name+" Won.</h3>";
+			}
 			window.clearInterval(timer);
 		}
 		else if (board.getState() == 2) {
-			disc.innerHTML = "<h3>Game Over. "+Ai1.name+" Won.</h3>";
+			if(board.player1Starts){
+				disc.innerHTML = "<h3>Game Over. "+Ai1.name+" Won.</h3>";
+			}else{
+				disc.innerHTML = "<h3>Game Over. "+Ai2.name+" Won.</h3>";
+			}
 			window.clearInterval(timer);
 		}
 		else {
