@@ -45,3 +45,13 @@ class treeBot extends Ai {
         this.name="Grootbot";
     }
 }
+
+class betterTreeBot extends Ai {
+    constructor() {
+      super();
+      this.m=function(gameboard){
+        return getNextMove(gameboard, 7, true, true);
+      }
+        this.name="Grooterbot";
+    }
+}
