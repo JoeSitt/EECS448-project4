@@ -410,10 +410,10 @@ function fightAi(x) {
 			return;
 		}
 		if (!getWinner()) {
-			moveRandom();	
+			moveRandom();
 			disc.innerHTML = "<h3>Player 1's Turn</h3>";
-			getWinner();			
-		}		
+			getWinner();
+		}
 	}
 	}
 	return;
@@ -474,10 +474,10 @@ function fightAi1(x) {
 			return;
 		}
 		if (!getWinner()) {
-			moveTree();	
+			moveTree();
 			disc.innerHTML = "<h3>Player 1's Turn</h3>";
-			getWinner();			
-		}	
+			getWinner();
+		}
 	}
 	}
 	return;
@@ -506,7 +506,7 @@ function RvsT() {
 			disc.innerHTML = "<h3 style='color:#ffffff'>Game Over. Game Tied.</h3>";
 			window.clearInterval(timer);
 		}
-		
+
         return;
     }
 	var disc = document.getElementById("turns");
@@ -1018,4 +1018,29 @@ function faceOff(rounds, AI1_move_function, AI2_move_function) {
 
 	var outArr = [ai1WinCount, ai2WinCount, tieCount];
 	return outArr;
+}
+
+/**
+* Returns the number of open 3-in-a-row positions occupied by the player whose turn it is.
+*/
+function countOpen3(game) {
+	var moveCount = 0;
+	for (var i = 0; i < 6; i++) {
+		for (var j = 0; j < 7; j++) {
+
+			// if spot is unoccupied
+			if (game.grid[i][j] == 0) {
+
+				// Test of playing here results in a player win
+				game.grid[i][j] = game.turn;
+				if (game.hasPlayerWon(game.turn)) {
+					moveCount++;
+				}
+
+				// Set the spot back
+				game.grid[i][j] = 0;
+			}
+		}
+	}
+	return moveCount;
 }

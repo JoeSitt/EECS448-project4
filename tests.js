@@ -347,15 +347,27 @@ QUnit.test("Infinity test", function(assert) {
 });
 
 /**
-* Verify behavior of infinity.
+* Verify that number of open 3-in-a-row spots for the passed player can be
+* determined.
 */
-QUnit.test("Game move() and getCopy() test", function(assert) {
-  assert.ok(Infinity > 1, "Verify infinity comparison");
-  assert.ok(-Infinity < -1, "Verify infinity comparison");
+QUnit.test("countOpen3(...) test", function(assert) {
+    var testGame = new Game(true);
+    var testGrid = [
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 2, 1, 0, 0, 0],
+        [1, 0, 1, 2, 1, 2, 0],
+        [1, 0, 2, 1, 1, 1, 0],
+        [1, 2, 2, 2, 1, 2, 2]
+    ];
+    testGame.grid = testGrid;
+    assert.equal(testGame.turn, 1, "Verify turn");
+    assert.equal(countOpen3(testGame), 6, "Verify that open 3-in-a-row spots for player 1 can be identified");
+    assert.deepEqual(testGame.grid, testGrid, "Verify that grid passed grid is not altered");
 
-  // var testGame = new Game(true);
-  // var testGameCopy = testGame.getCopy();
-  // assert.equal(testGame.turn, testGameCopy.turn, "Verify game turn info copied correctly");
-  // assert.ok(testGameCopy.move(0), "Verify that move is a success");
-  // assert.notEqual(testGame.turn, testGameCopy.turn, "Verify game copy does not retain turn info");
+    var testGame = new Game(false);
+    testGame.grid = testGrid;
+    assert.equal(testGame.turn, 2, "Verify turn");
+    assert.equal(countOpen3(testGame), 1, "Verify that open 3-in-a-row spots for player 2 can be identified");
+    assert.deepEqual(testGame.grid, testGrid, "Verify that grid passed grid is not altered");
 });
