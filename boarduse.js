@@ -881,15 +881,15 @@ function getPossibleMoves(game) {
 	return moveList;
 }
 
-function alphabeta(game, depth, a, b) {
+function alphabeta(game, depth, a, b, use_heuristic) {
 
 	// If game is over
 	var gameState = game.getState();
 	if (gameState != -1) {
 		if (gameState == 1) {
-			return -1;
+			return -1000;
 		} else if (gameState == 2) {
-			return 1;
+			return 1000;
 		} else {
 			return 0;
 		}
@@ -897,7 +897,17 @@ function alphabeta(game, depth, a, b) {
 
 	// If max search depth has been reached
 	if (depth == 0) {
-		return 0;
+		if (use_heuristic) {
+			var value = countOpen3(game);
+			if (game.turn == 1) {
+				value *= -1;
+			}
+			// console.log("Used");
+			return value;
+		} else {
+			// console.log("Not Used");
+			return 0;
+		}
 	}
 
 	var potentialMoves = getPossibleMoves(game);
@@ -911,7 +921,7 @@ function alphabeta(game, depth, a, b) {
 			var gameCopy = game.getCopy();
 			gameCopy.move(element);
 
-			var gameScore = alphabeta(gameCopy, depth - 1, a, b);
+			var gameScore = alphabeta(gameCopy, depth - 1, a, b, use_heuristic);
 			v = Math.max(v, gameScore);
 			a = Math.max(a, v);
 
@@ -928,7 +938,7 @@ function alphabeta(game, depth, a, b) {
 			var gameCopy = game.getCopy();
 			gameCopy.move(element);
 
-			var gameScore = alphabeta(gameCopy, depth - 1, a, b);
+			var gameScore = alphabeta(gameCopy, depth - 1, a, b, use_heuristic);
 			v = Math.min(v, gameScore);
 			b = Math.min(b, v);
 
@@ -940,14 +950,14 @@ function alphabeta(game, depth, a, b) {
 	}
 }
 
-function getNextMove(game, depth, randomize) {
+function getNextMove(game, depth, randomize, use_heuristic) {
 	var potentialMoves = getPossibleMoves(game);
 	var moveScores = [];
 
 	potentialMoves.forEach(function(element) {
 	    var gameCopy = game.getCopy();
 		gameCopy.move(element);
-		var moveScore = alphabeta(gameCopy, depth - 1, -Infinity, Infinity);
+		var moveScore = alphabeta(gameCopy, depth - 1, -Infinity, Infinity, use_heuristic);
 		moveScores.push(moveScore);
 	});
 
@@ -958,10 +968,8 @@ function getNextMove(game, depth, randomize) {
 	var bestScore;
 
 	if (game.turn == 1) {
-		// return potentialMoves[moveScores.indexOf(Math.min(...moveScores))];
 		bestScore = Math.min(...moveScores);
 	} else {
-		// return potentialMoves[moveScores.indexOf(Math.max(...moveScores))];
 		bestScore = Math.max(...moveScores);
 	}
 
@@ -980,11 +988,15 @@ function getNextMove(game, depth, randomize) {
 }
 
 function getNextMove_StrongAI(game) {
-	return getNextMove(game, 4, true);
+	return getNextMove(game, 5, true);
 }
 
 function getNextMove_WeakAI(game) {
 	return getNextMove(game, 1, true);
+}
+
+function getNextMove_NewAI(game) {
+	return getNextMove(game, 5, true, true);
 }
 
 function faceOff(rounds, AI1_move_function, AI2_move_function) {
