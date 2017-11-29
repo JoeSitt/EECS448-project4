@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+      <title>Connect Four</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<form onsubmit="Create()">
+		<h2>Select your Players.</h2><br>
+		<h2>Select Player 1</h2>
+		<select id="Select1">
+		<option value="10">Player 1</option>
+		<option value="2">Random Ai</option>
+		<option value="3">TreeBot Ai</option>
+		<option value="4">Strong TreeBot Ai</option>
+		</select><br><br>
+		<h2>Select Player 2</h2>
+		<select id="Select2">
+		<option value="10">Player 2</option>
+		<option value="2">Random Ai</option>
+		<option value="3">TreeBot Ai</option>
+		<option value="4">Strong TreeBot Ai</option>
+		</select>
+		<br><br><button type="button" onclick="Create()">Play</button>
+	</form>
+	<script type="text/javascript" src="Ai.js"> </script>
+	<script type="text/javascript" src="gameboard.js"> </script>
+	<script type="text/javascript" src="getboard.js"> </script>
+	<script type="text/javascript" src="boarduse.js"> </script>
+
+	</head>
+	<body>
+	</body>
+</html>
