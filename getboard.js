@@ -1,6 +1,7 @@
 /**
 * Creates a game board.
 */
+var coin=getRandInt(0,2);
 function Create() {
 	var choice = document.getElementsByName("q1");
 	var picked;
@@ -13,9 +14,14 @@ function Create() {
 	var buttons = '<br><center><button id="first" value="0" onclick="dropDisc(1)">First Column.</button><button id="second" value="0" onclick="dropDisc(2)">Second Column.</button><button id="third" value="0" onclick="dropDisc(3)">Third Column.</button><button id="fourth" value="0" onclick="dropDisc(4)">Fourth Column.</button><button id="fifth" value="0" onclick="dropDisc(5)">Fifth Column.</button><button id="sixth" value="0" onclick="dropDisc(6)">Sixth Column.</button><button id="seventh" value="0" onclick="dropDisc(7)">Seventh Column.</button><br><br><button id="resetboard" value="0" onclick="reset()">Reset Board.</button><br></center>';
 	var buttons1 = '<br><center><button id="first" value="0" onclick="fightAi(1)">First Column.</button><button id="second" value="0" onclick="fightAi(2)">Second Column.</button><button id="third" value="0" onclick="fightAi(3)">Third Column.</button><button id="fourth" value="0" onclick="fightAi(4)">Fourth Column.</button><button id="fifth" value="0" onclick="fightAi(5)">Fifth Column.</button><button id="sixth" value="0" onclick="fightAi(6)">Sixth Column.</button><button id="seventh" value="0" onclick="fightAi(7)">Seventh Column.</button><br><br><button id="resetboard" value="0" onclick="reset()">Reset Board.</button><br></center>';
 	var turn = '</button><button class="button" value="0" id="turns"><h3>Player 1\'s Turn</h3></button>';
+	if(coin){
+		turn = '</button><button class="button" value="1" id="turns"><h3>Player 2\'s Turn</h3></button>';
+	}else {
+		turn = '</button><button class="button" value="0" id="turns"><h3>Player 1\'s Turn</h3></button>';
+	}
 	var resetb = '<br><center><button id="resetboard" value="0" onclick="reset()">Reset Board.</button><br></center>';
 	var choice = '<form onsubmit="Create()"><h2>What mode would you like to play?</h2><br><fieldset id="q1"><h4><input name="q1" value="1" id="A" type="radio"> A. Player vs Ai<br><input name="q1" value="2" id="B" type="radio" checked="checked"> B. 2 players<br><input name="q1" value="3" id="C" type="radio"> C. Ai vs Ai<br></h4></fieldset><br><input type="submit" name="submit" value="Submit.">	</form>';
-	
+
 	var gameMode = 0;
 	if (picked == 1) {
 		document.body.innerHTML = '<center><h3 id="1A">You picked Player vs Random Ai.</h3>' + turn + '</center>';
@@ -61,7 +67,7 @@ function Create() {
 			cellA.id = id3;
 		}
 	}
-	
+
 	if (gameMode == 1 || gameMode == 4) {
 		var tableE = document.createElement("table");
 		tableE.className = "main";
@@ -98,11 +104,11 @@ function Create() {
 			}
 		}
 	}
-	
+
 	if (gameMode != 3 && gameMode != 5 && gameMode != 6) {
 		document.body.appendChild(tableA);
 	}
-	
+
 	document.body.appendChild(tableE);
 
 	if (gameMode == 1) {
@@ -116,7 +122,8 @@ function Create() {
 		addPlayerEvent();
 	}
 	else if (gameMode == 3) {
-		RandomAivsRandomAi();
+		//RandomAivsRandomAi();
+		AivsAi("rando","rando");
 	}
 	else if (gameMode == 4) {
 		document.body.innerHTML += resetb;
@@ -124,13 +131,16 @@ function Create() {
 		addAi1Event();
 	}
 	else if (gameMode == 5) {
-		RandomAivstreeBotAi();
+		//RandomAivstreeBotAi();
+		AivsAi("rando","tree");
+
 	}
-	else if (gameMode == 6) {		
-		treeBotAivstreeBotAi();
+	else if (gameMode == 6) {
+		//treeBotAivstreeBotAi();
+		AivsAi("tree","tree");
 	}
 	else if (gameMode == 7) {
-		
+
 	}
 
 }

@@ -1,5 +1,5 @@
 // Used to store state of game. Red is treated as plauer 1 and starts
-var board = new Game(true);
+var board = new Game(coin);
 
 /**
 * Resets game. Both external and internal board representations are reset.
@@ -91,12 +91,7 @@ function moveRandom() {
     update();
 }
 
-/**
-* Returns a ranom int in the range [start, end)
-*/
-function getRandInt(start, end) {
-    return start + Math.floor(Math.random() * (end - start));
-}
+
 
 /**
 * Updates frontend board repsentation according to Game object.
@@ -483,6 +478,103 @@ function fightAi1(x) {
 	return;
 }
 
+
+function AivsAi(name1, name2) {
+	Ai1=dermineAi(name1);
+	Ai2=dermineAi(name2);
+	timer = window.setInterval(moveAI, 1000);
+	return;
+}
+
+var Ai1;
+var Ai2;
+function dermineAi(name){
+if (name=="rando") {
+	  return new randobot();
+	 //Ai2=new randobot();
+}else if (name=="tree") {
+	 return new treeBot();
+	 //Ai1=new treeBot();
+}else if (name=="left") {
+	 return new left();
+	 //Ai1=new treeBot();
+}else if (name=="better") {
+	 return new betterTreeBot();
+	 //Ai1=new treeBot();
+}else {
+	 return new Ai();
+	 //Ai2=new treeBot();
+}
+
+//console.log(Ai1);
+//console.log(Ai2);
+}
+function moveAI() {
+    // console.log(Ai2);
+
+    update();
+
+  	var disc = document.getElementById("turns");
+  	disc.innerHTML = "<h3>Ai Currently Playing.</h3>";
+
+    // Move randomly until valid move found
+    if (((disc.value % 2) == 1) /*&& check*/) {
+      var game=board;
+			disc.innerHTML = "<h3>" + Ai1.name + "'s Turn</h3>";
+      while (!board.move(Ai1.m(game))) {}
+			console.log(Ai1.name+" went");
+      //move(Ai1.m(game));
+      disc.value++;
+      //getWinner();
+      update();
+    }
+    else {
+      var game=board
+      //var test = Ai2.m(game);
+			disc.innerHTML = "<h3>" + Ai2.name + "'s Turn</h3>";
+      while (!board.move(Ai2.m(game))) {}
+			console.log(Ai2.name+" went");
+      //move(Ai2.m(game));
+      disc.value++;
+      //getWinner();
+       update();
+    }
+    if (disc.value == 42) {
+      disc.innerHTML = "<h3>Game Over.</h3>";
+    }
+    //while (!board.move(getRandInt(0, 7))) {}
+		if (board.getState() != -1) {
+
+				//modified to make the frontend work
+		var disc = document.getElementById("turns");
+		if (board.getState() == 1) {
+			if(board.player1Starts){
+				disc.innerHTML = "<h3 style='color:#0141c1'>Game Over. "+Ai2.name+"2 Won.</h3>";
+			}else{
+				disc.innerHTML = "<h3  style='color:#d80000;'>Game Over. "+Ai1.name+"1 Won.</h3>";
+			}
+			window.clearInterval(timer);
+		}
+		else if (board.getState() == 2) {
+			if(board.player1Starts){
+				disc.innerHTML = "<h3 style='color:#d80000;'>Game Over. "+Ai1.name+"1 Won.</h3>";
+			}else{
+				disc.innerHTML = "<h3 style='color:#0141c1'>Game Over. "+Ai2.name+"2 Won.</h3>";
+			}
+			window.clearInterval(timer);
+		}
+		else {
+			disc.innerHTML = "<h3 style='color:#ffffff'>Game Over. Game Tied.</h3>";
+			window.clearInterval(timer);
+		}
+				update();
+				return;
+		}
+
+update();
+
+}
+
 function moveTree() {
 	Ai1 = new treeBot();
 	var game = board;
@@ -551,10 +643,6 @@ function TvsT() {
 
     update();
 }
-
-var timer;
-var Ai1;
-var Ai2;
 
 function RandomAivsRandomAi() {
 	timer = window.setInterval(moveRandom, 1000);

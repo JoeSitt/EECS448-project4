@@ -231,3 +231,10 @@ class Game {
         }
     }
 };
+
+/**
+* Returns a ranom int in the range [start, end)
+*/
+function getRandInt(start, end) {
+    return start + Math.floor(Math.random() * (end - start));
+}
