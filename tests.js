@@ -254,10 +254,8 @@ QUnit.test("getPossibleMoves(...) test", function(assert) {
 
 /**
 * Verifies that next move can be found.
-*
-* TODO(cmaxcy): Add tests for random and non-random options
 */
-QUnit.test("getNextMove(...) test", function(assert) {
+QUnit.test("getNextMove(...) non-random, non-heuristic test", function(assert) {
 
     var testGame = new Game(true);
     var testGrid = [
@@ -270,20 +268,7 @@ QUnit.test("getNextMove(...) test", function(assert) {
     ];
     testGame.grid = testGrid;
     assert.equal(testGame.turn, 1, "Verify turn");
-    assert.equal(getNextMove(testGame, 7, false), 5, "Verify that correct move 1 ahead can be located, selecting first best move");
-
-    var testGame = new Game(true);
-    var testGrid = [
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 1, 0],
-        [0, 0, 0, 0, 0, 1, 0],
-        [0, 0, 2, 0, 2, 1, 2]
-    ];
-    testGame.grid = testGrid;
-    assert.equal(testGame.turn, 1, "Verify turn");
-    assert.equal(getNextMove(testGame, 7, true), 5, "Verify that correct move 1 ahead can be located, selecting randomly from best moves");
+    assert.equal(getNextMove(testGame, 7, false, false), 5, "Verify that correct move 1 ahead can be located, selecting first best move");
 
     var testGame = new Game(true);
     var testGrid = [
@@ -296,7 +281,7 @@ QUnit.test("getNextMove(...) test", function(assert) {
     ];
     testGame.grid = testGrid;
     assert.equal(testGame.turn, 1, "Verify turn");
-    assert.equal(getNextMove(testGame, 7, false), 0, "Verify first spot will be selected, as empty grid should indicate that all moves are valid");
+    assert.equal(getNextMove(testGame, 7, false, false), 0, "Verify first spot will be selected, as empty grid should indicate that all moves are valid");
 
     var testGame = new Game(false);
     var testGrid = [
@@ -309,7 +294,7 @@ QUnit.test("getNextMove(...) test", function(assert) {
     ];
     testGame.grid = testGrid;
     assert.equal(testGame.turn, 2, "Verify turn");
-    assert.equal(getNextMove(testGame, 7, false), 5, "Verify that correct move 1 ahead can be located, selecting first best move");
+    assert.equal(getNextMove(testGame, 7, false, false), 5, "Verify that correct move 1 ahead can be located, selecting first best move");
 
     var testGame = new Game(false);
     var testGrid = [
@@ -322,7 +307,7 @@ QUnit.test("getNextMove(...) test", function(assert) {
     ];
     testGame.grid = testGrid;
     assert.equal(testGame.turn, 2, "Verify turn");
-    assert.equal(getNextMove(testGame, 7, true), 5, "Verify that correct move 1 ahead can be located, selecting randomly from best moves");
+    assert.equal(getNextMove(testGame, 7, false, false), 5, "Verify that correct move 1 ahead can be located");
 
     var testGame = new Game(true);
     var testGrid = [
@@ -335,7 +320,194 @@ QUnit.test("getNextMove(...) test", function(assert) {
     ];
     testGame.grid = testGrid;
     assert.equal(testGame.turn, 1, "Verify turn");
-    assert.equal(getNextMove(testGame, 7, false), 6, "Verify that non-obvious move can be found");
+    assert.equal(getNextMove(testGame, 7, false, false), 6, "Verify that non-obvious move can be found");
+});
+
+/**
+* Verifies that next move can be found.
+*/
+QUnit.test("getNextMove(...) random, non-heuristic test", function(assert) {
+
+    var testGame = new Game(true);
+    var testGrid = [
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 1, 0],
+        [0, 0, 0, 0, 0, 1, 0],
+        [0, 0, 2, 0, 2, 1, 2]
+    ];
+    testGame.grid = testGrid;
+    assert.equal(testGame.turn, 1, "Verify turn");
+    assert.equal(getNextMove(testGame, 7, true, false), 5, "Verify that correct move 1 ahead can be located, selecting first best move");
+
+    var testGame = new Game(false);
+    var testGrid = [
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 1, 0],
+        [0, 0, 0, 0, 0, 1, 0],
+        [0, 0, 2, 0, 2, 1, 2]
+    ];
+    testGame.grid = testGrid;
+    assert.equal(testGame.turn, 2, "Verify turn");
+    assert.equal(getNextMove(testGame, 7, true, false), 5, "Verify that correct move 1 ahead can be located, selecting first best move");
+
+    var testGame = new Game(false);
+    var testGrid = [
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 1, 0],
+        [0, 0, 0, 0, 0, 1, 0],
+        [0, 0, 2, 0, 2, 1, 2]
+    ];
+    testGame.grid = testGrid;
+    assert.equal(testGame.turn, 2, "Verify turn");
+    assert.equal(getNextMove(testGame, 7, true, false), 5, "Verify that correct move 1 ahead can be located");
+
+    var testGame = new Game(true);
+    var testGrid = [
+        [0, 2, 0, 2, 0, 1, 0],
+        [0, 2, 0, 1, 0, 1, 2],
+        [0, 1, 0, 2, 0, 1, 2],
+        [1, 2, 1, 1, 0, 2, 2],
+        [1, 1, 2, 2, 0, 1, 1],
+        [2, 2, 2, 1, 1, 2, 1]
+    ];
+    testGame.grid = testGrid;
+    assert.equal(testGame.turn, 1, "Verify turn");
+    assert.equal(getNextMove(testGame, 7, true, false), 6, "Verify that non-obvious move can be found");
+});
+
+/**
+* Verifies that next move can be found.
+*/
+QUnit.test("getNextMove(...) non-random, heuristic test", function(assert) {
+
+    var testGame = new Game(true);
+    var testGrid = [
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 1, 0],
+        [0, 0, 0, 0, 0, 1, 0],
+        [0, 0, 2, 0, 2, 1, 2]
+    ];
+    testGame.grid = testGrid;
+    assert.equal(testGame.turn, 1, "Verify turn");
+    assert.equal(getNextMove(testGame, 7, false, true), 5, "Verify that correct move 1 ahead can be located, selecting first best move");
+
+    var testGame = new Game(true);
+    var testGrid = [
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0]
+    ];
+    testGame.grid = testGrid;
+    assert.equal(testGame.turn, 1, "Verify turn");
+    assert.equal(getNextMove(testGame, 7, false, true), 0, "Verify first spot will be selected, as empty grid should indicate that all moves are valid");
+
+    var testGame = new Game(false);
+    var testGrid = [
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 1, 0],
+        [0, 0, 0, 0, 0, 1, 0],
+        [0, 0, 2, 0, 2, 1, 2]
+    ];
+    testGame.grid = testGrid;
+    assert.equal(testGame.turn, 2, "Verify turn");
+    assert.equal(getNextMove(testGame, 7, false, true), 5, "Verify that correct move 1 ahead can be located, selecting first best move");
+
+    var testGame = new Game(false);
+    var testGrid = [
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 1, 0],
+        [0, 0, 0, 0, 0, 1, 0],
+        [0, 0, 2, 0, 2, 1, 2]
+    ];
+    testGame.grid = testGrid;
+    assert.equal(testGame.turn, 2, "Verify turn");
+    assert.equal(getNextMove(testGame, 7, false, true), 5, "Verify that correct move 1 ahead can be located");
+
+    var testGame = new Game(true);
+    var testGrid = [
+        [0, 2, 0, 2, 0, 1, 0],
+        [0, 2, 0, 1, 0, 1, 2],
+        [0, 1, 0, 2, 0, 1, 2],
+        [1, 2, 1, 1, 0, 2, 2],
+        [1, 1, 2, 2, 0, 1, 1],
+        [2, 2, 2, 1, 1, 2, 1]
+    ];
+    testGame.grid = testGrid;
+    assert.equal(testGame.turn, 1, "Verify turn");
+    assert.equal(getNextMove(testGame, 7, false, true), 6, "Verify that non-obvious move can be found");
+});
+
+/**
+* Verifies that next move can be found.
+*/
+QUnit.test("getNextMove(...) random, heuristic test", function(assert) {
+
+    var testGame = new Game(true);
+    var testGrid = [
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 1, 0],
+        [0, 0, 0, 0, 0, 1, 0],
+        [0, 0, 2, 0, 2, 1, 2]
+    ];
+    testGame.grid = testGrid;
+    assert.equal(testGame.turn, 1, "Verify turn");
+    assert.equal(getNextMove(testGame, 7, true, true), 5, "Verify that correct move 1 ahead can be located, selecting first best move");
+
+    var testGame = new Game(false);
+    var testGrid = [
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 1, 0],
+        [0, 0, 0, 0, 0, 1, 0],
+        [0, 0, 2, 0, 2, 1, 2]
+    ];
+    testGame.grid = testGrid;
+    assert.equal(testGame.turn, 2, "Verify turn");
+    assert.equal(getNextMove(testGame, 7, true, true), 5, "Verify that correct move 1 ahead can be located, selecting first best move");
+
+    var testGame = new Game(false);
+    var testGrid = [
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 1, 0],
+        [0, 0, 0, 0, 0, 1, 0],
+        [0, 0, 2, 0, 2, 1, 2]
+    ];
+    testGame.grid = testGrid;
+    assert.equal(testGame.turn, 2, "Verify turn");
+    assert.equal(getNextMove(testGame, 7, true, true), 5, "Verify that correct move 1 ahead can be located");
+
+    var testGame = new Game(true);
+    var testGrid = [
+        [0, 2, 0, 2, 0, 1, 0],
+        [0, 2, 0, 1, 0, 1, 2],
+        [0, 1, 0, 2, 0, 1, 2],
+        [1, 2, 1, 1, 0, 2, 2],
+        [1, 1, 2, 2, 0, 1, 1],
+        [2, 2, 2, 1, 1, 2, 1]
+    ];
+    testGame.grid = testGrid;
+    assert.equal(testGame.turn, 1, "Verify turn");
+    assert.equal(getNextMove(testGame, 7, true, true), 6, "Verify that non-obvious move can be found");
 });
 
 /**
