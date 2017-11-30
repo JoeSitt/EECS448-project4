@@ -7,17 +7,35 @@
         <h2>What mode would you like to play?</h2><br>
 		<fieldset id="q1">
 		<h4>
-        <input name="q1" value="1" id="A" type="radio"> A. Player vs Random Ai<br>
-		<input name="q1" value="4" id="D" type="radio"> B. Player vs TreeBot Ai<br>
+        <input name="q1" value="1" id="A" type="radio"> A. Player vs Ai: <select id="p1a1" name="p1a1">
+        <option name="vsAi" value="tree">TreeBot</option>
+        <option name="vsAi" value="rando">Randobot</option>
+        <option name="vsAi" value="left">LeftoBot</option>
+        <option name="vsAi" value="better">Better TreeBot</option>
+        <option name="vsAi" value="custom">Custom Ai</option>
+        </select><br>
+		<!--<input name="q1" value="4" id="D" type="radio"> B. Player vs TreeBot Ai<br>-->
         <input name="q1" value="2" id="B" type="radio" checked="checked"> C. 2 players<br>
-        <input name="q1" value="3" id="C" type="radio"> D. Random Ai vs Random Ai<br>
-		<input name="q1" value="5" id="E" type="radio"> E. Random Ai vs TreeBot Ai<br>
-		<input name="q1" value="6" id="F" type="radio"> F. TreeBot Ai vs TreeBot Ai<br>
-		<input name="q1" value="7" id="G" type="radio"> Custom Ai
+        <input name="q1" value="3" id="C" type="radio"> D. Ai:<select id="a1" name="a1">
+        <option name="vsAi" value="tree">TreeBot</option>
+        <option name="vsAi" value="rando">Randobot</option>
+        <option name="vsAi" value="left">LeftoBot</option>
+        <option name="vsAi" value="better">Better TreeBot</option>
+        <option name="vsAi" value="custom">Custom Ai</option>
+      </select> vs Ai:<select id="a2" name="a2">
+      <option name="vsAi" value="tree">TreeBot</option>
+      <option name="vsAi" value="rando">Randobot</option>
+      <option name="vsAi" value="left">LeftoBot</option>
+      <option name="vsAi" value="better">Better TreeBot</option>
+      <option name="vsAi" value="custom">Custom Ai</option>
+      </select><br>
+		<!--<input name="q1" value="5" id="E" type="radio"> E. Random Ai vs TreeBot Ai<br>
+		<input name="q1" value="6" id="F" type="radio"> F. TreeBot Ai vs TreeBot Ai<br>-->
+		<input name="q1" value="7" id="G" type="radio"> Custom Ai(still in development)
 		<input name="q1" value="Custom Ai Code" id="H" type="text">
 		</h4>
 		</fieldset>
-		<br><button onclick="Create()" type="button" name="submit" value="Submit.">Submit.</button><br>	
+		<br><button onclick="Create()" type="button" name="submit" value="Submit.">Submit.</button><br>
 	</form>
 	<script type="text/javascript" src="Ai.js"> </script>
 	<script type="text/javascript" src="gameboard.js"> </script>

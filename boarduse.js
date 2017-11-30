@@ -405,7 +405,11 @@ function fightAi(x) {
 			return;
 		}
 		if (!getWinner()) {
-			moveRandom();
+			//moveRandom();
+			var game = board;
+			disc.innerHTML = "<h3>"+Ai1.name+"'s Turn</h3>";
+			while (!board.move(Ai1.m(game))) {}
+			update();
 			disc.innerHTML = "<h3>Player 1's Turn</h3>";
 			getWinner();
 		}
@@ -480,35 +484,15 @@ function fightAi1(x) {
 
 
 function AivsAi(name1, name2) {
-	Ai1=dermineAi(name1);
-	Ai2=dermineAi(name2);
+	Ai1=determineAi(name1);
+	Ai2=determineAi(name2);
 	timer = window.setInterval(moveAI, 1000);
 	return;
 }
 
 var Ai1;
 var Ai2;
-function dermineAi(name){
-if (name=="rando") {
-	  return new randobot();
-	 //Ai2=new randobot();
-}else if (name=="tree") {
-	 return new treeBot();
-	 //Ai1=new treeBot();
-}else if (name=="left") {
-	 return new left();
-	 //Ai1=new treeBot();
-}else if (name=="better") {
-	 return new betterTreeBot();
-	 //Ai1=new treeBot();
-}else {
-	 return new Ai();
-	 //Ai2=new treeBot();
-}
 
-//console.log(Ai1);
-//console.log(Ai2);
-}
 function moveAI() {
     // console.log(Ai2);
 

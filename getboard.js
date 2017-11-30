@@ -2,7 +2,14 @@
 * Creates a game board.
 */
 var coin=getRandInt(0,2);
+var gameselected;
+var vsAi = document.getElementsByName("p1a1");
+var A1= document.getElementsByName("a1");
+var A2= document.getElementsByName("a2");
 function Create() {
+	var vsai = vsAi[0].value;
+		var a1 = A1[0].value;
+			var a2 = A2[0].value;
 	var choice = document.getElementsByName("q1");
 	var picked;
 	for (var i = 0; i < choice.length; i++) {
@@ -24,15 +31,17 @@ function Create() {
 
 	var gameMode = 0;
 	if (picked == 1) {
-		document.body.innerHTML = '<center><h3 id="1A">You picked Player vs Random Ai.</h3>' + turn + '</center>';
+		document.body.innerHTML = '<center><h3 id="1A">You picked Player vs '+vsai+' Ai.</h3>' + turn + '</center>';
 		gameMode = 1;
+		Ai1=determineAi(vsai);
 	}
 	else if (picked == 2) {
 		document.body.innerHTML = '<center><h3 id="PP">You picked Player vs Player.</h3>' + turn + '</center>';
 		gameMode = 2;
 	}
 	else if (picked == 3) {
-		document.body.innerHTML = '<center><h3 id="AR">You picked Random Ai vs Random Ai.</h3>' + turn + '</center>';
+		document.body.innerHTML = '<center><h3 id="AR">You picked '+a1+' Ai vs '+a2+' Ai.</h3>' + turn + '</center>';
+		//AivsAi(a1,a2);
 		gameMode = 3;
 	}
 	else if (picked == 4) {
@@ -111,6 +120,9 @@ function Create() {
 
 	document.body.appendChild(tableE);
 
+
+
+
 	if (gameMode == 1) {
 		document.body.innerHTML += resetb;
 		addEvents();
@@ -123,7 +135,7 @@ function Create() {
 	}
 	else if (gameMode == 3) {
 		//RandomAivsRandomAi();
-		AivsAi("rando","rando");
+		AivsAi(a1,a2);
 	}
 	else if (gameMode == 4) {
 		document.body.innerHTML += resetb;
@@ -142,5 +154,5 @@ function Create() {
 	else if (gameMode == 7) {
 
 	}
-
+gameselected=gameMode;
 }

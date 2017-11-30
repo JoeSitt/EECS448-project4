@@ -55,3 +55,28 @@ class betterTreeBot extends Ai {
         this.name="Grooterbot";
     }
 }
+
+
+
+function determineAi(name){
+  console.log(name);
+if (name=="rando") {
+	  return new randobot();
+	 //Ai2=new randobot();
+}else if (name=="tree") {
+	 return new treeBot();
+	 //Ai1=new treeBot();
+}else if (name=="left") {
+	 return new left();
+	 //Ai1=new treeBot();
+}else if (name=="better") {
+	 return new betterTreeBot();
+	 //Ai1=new treeBot();
+}else {
+	 return new Ai();
+	 //Ai2=new treeBot();
+}
+
+//console.log(Ai1);
+//console.log(Ai2);
+}
