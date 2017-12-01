@@ -1,0 +1,11 @@
+Minimax Algorithm with Alpha-Beta Pruning
+https://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning
+
+Heuristic Improvment Algorithm
+https://roadtolarissa.com/connect-4-ai-how-it-works/
+
+Math Javascript Library
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math
+
+Map Javascript Library
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map

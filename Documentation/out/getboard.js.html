@@ -27,89 +27,121 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
-* Create's game board.
+* Creates a game board.
 */
 function Create() {
-	var choice = document.getElementsByName("q1");
-	var picked;
-	for (var i = 0; i &lt; choice.length; i++) {
+	//var choice = document.getElementsByName("q1");
+	//var picked;
+	var s1 = parseInt(document.getElementById("Select1").value);
+	var s2 = parseInt(document.getElementById("Select2").value);
+	/*for (var i = 0; i &lt; choice.length; i++) {
 		if (choice[i].checked) {
 			picked = choice[i].value;
 			break;
 		}
-	}
-	var buttons = '&lt;br>&lt;center>&lt;button id="first" value="0" onclick="dropDisc(1)">First Column.&lt;/button>&lt;button id="second" value="0" onclick="dropDisc(2)">Second Column.&lt;/button>&lt;button id="third" value="0" onclick="dropDisc(3)">Third Column.&lt;/button>&lt;button id="fourth" value="0" onclick="dropDisc(4)">Fourth Column.&lt;/button>&lt;button id="fifth" value="0" onclick="dropDisc(5)">Fifth Column.&lt;/button>&lt;button id="sixth" value="0" onclick="dropDisc(6)">Sixth Column.&lt;/button>&lt;button id="seventh" value="0" onclick="dropDisc(7)">Seventh Column.&lt;/button>&lt;br>&lt;br>&lt;button id="resetboard" value="0" onclick="reset()">Reset Board.&lt;/button>&lt;br>&lt;/center>';
-	var buttons1 = '&lt;br>&lt;center>&lt;button id="first" value="0" onclick="fightAi(1)">First Column.&lt;/button>&lt;button id="second" value="0" onclick="fightAi(2)">Second Column.&lt;/button>&lt;button id="third" value="0" onclick="fightAi(3)">Third Column.&lt;/button>&lt;button id="fourth" value="0" onclick="fightAi(4)">Fourth Column.&lt;/button>&lt;button id="fifth" value="0" onclick="fightAi(5)">Fifth Column.&lt;/button>&lt;button id="sixth" value="0" onclick="fightAi(6)">Sixth Column.&lt;/button>&lt;button id="seventh" value="0" onclick="fightAi(7)">Seventh Column.&lt;/button>&lt;br>&lt;br>&lt;button id="resetboard" value="0" onclick="reset()">Reset Board.&lt;/button>&lt;br>&lt;/center>';
-	var turn = '&lt;/button>&lt;button class="button" value="0" id="turns">&lt;h3>Player 1\'s Turn&lt;/h3>&lt;/button>&lt;br>';
-	var choice = '&lt;form onsubmit="Create()">&lt;h2>What mode would you like to play?&lt;/h2>&lt;br>&lt;fieldset id="q1">&lt;h4>&lt;input name="q1" value="1" id="A" type="radio"> A. Player vs Ai&lt;br>&lt;input name="q1" value="2" id="B" type="radio" checked="checked"> B. 2 players&lt;br>&lt;input name="q1" value="3" id="C" type="radio"> C. Ai vs Ai&lt;br>&lt;/h4>&lt;/fieldset>&lt;br>&lt;input type="submit" name="submit" value="Submit.">	&lt;/form>';
+	}*/
+	var turn = '&lt;/button>&lt;button class="button" value="0" id="turns">&lt;h3>Player 1\'s Turn&lt;/h3>&lt;/button>';
+	var resetb = '&lt;br>&lt;center>&lt;button id="resetboard" value="0" onclick="reset()">Reset Board.&lt;/button>&lt;br>&lt;/center>';
+	var resetbx = '&lt;br>&lt;center>&lt;button id="resetboard" value="0" onclick="resetx()">Reset Board.&lt;/button>&lt;br>&lt;/center>';
+		
 	var gameMode = 0;
-	if (picked == 1) {
-		document.body.innerHTML = '&lt;center>&lt;h3 id="1A">You picked Player vs Ai.&lt;/h3>' + turn + '&lt;/center>';
+	document.body.innerHTML = '&lt;center>' + turn + '&lt;/center>';
+	if ((s1 + s2) &lt; 10) {
 		gameMode = 1;
+		
 	}
-	else if (picked == 2) {
-		document.body.innerHTML = '&lt;center>&lt;h3 id="PP">You picked Player vs Player.&lt;/h3>' + turn + '&lt;/center>';
+	else if ((s1 + s2) == 20) {
 		gameMode = 2;
 	}
-	else {
-		document.body.innerHTML = '&lt;center>&lt;h3 id="AA">You picked Ai vs Ai.&lt;/h3>' + turn + '&lt;/center>';
+	else if ((s1 + s2) > 10) {
 		gameMode = 3;
 	}
+	/*else if (picked == 7) {
+		document.body.innerHTML = '&lt;center>&lt;h3 id="AC">You picked Player vs Custom Ai.&lt;/h3>' + turn + '&lt;/center>';
+		gameMode = 7;
+	}*/
 
-	//var row = document.createElement("tr");
-	//document.getElementById("tableE").appendChild(row);
+	if (gameMode != 1) { 
+		var tableA = document.createElement("table");
+		tableA.className = "vanish";
+		tableA.id = "Table1";
+		var rowA = tableA.insertRow(-1);
+		for (var j = 0; j &lt; 7; j++) {
+			var id = "n" + j;
+			var id1 = "b" + j;
+			var id2 = "r" + j;
+			var cellA = rowA.insertCell(-1);
+			cellA.className = "vanish";
+			var id3 = "top" + j;
+			cellA.id = id3;
+		}
+	}
+	
 	var tableE = document.createElement("table");
-	tableE.style.border = "1px solid black";
+	tableE.className = "main";
 	tableE.id = "Table";
-	/*var imge = document.createElement("img");
-	imge.src = "https://people.eecs.ku.edu/~j024s900/project3/nodot.png";
-	imge.height = "50";
-	imge.width = "50";
-
-	var imge1 = document.createElement("img");
-	imge1.src = "https://people.eecs.ku.edu/~j024s900/project3/bdot.png";
-	imge1.height = "50";
-	imge1.width = "50";
-	imge1.hidden = "1";
-
-	var imge2 = document.createElement("img");
-	imge2.src = "https://people.eecs.ku.edu/~j024s900/project3/reddot.png";
-	imge2.height = "50";
-	imge2.width = "50";
-	imge2.hidden = "1";*/
-
 	for (var i = 0; i &lt; 6; i++) {
 		var row = tableE.insertRow(-1);
 		for (var j = 0; j &lt; 7; j++) {
 			var id = "n" + i + j;
 			var id1 = "b" + i + j;
 			var id2 = "r" + i + j;
-			var b = '&lt;img src="https://people.eecs.ku.edu/~j024s900/project3/nodot.png" height="100" width="100" id="' + id + '">' + '&lt;img src="https://people.eecs.ku.edu/~j024s900/project3/bdot.png" height="100" width="100" hidden="1" id="' + id1 + '">' + '&lt;img src="https://people.eecs.ku.edu/~j024s900/project3/reddot.png" height="100" width="100" hidden="1" id="' + id2 + '">';
+			var k = j + 1;
 			var cell1 = row.insertCell(-1);
-			cell1.style.border = "1px solid black";
-			cell1.innerHTML = b;
-			//cell1.appendChild(imge1);
-			//cell1.appendChild(imge2);
+			cell1.className = "main";
+			var id3 = "cell" + i + j;
+			cell1.id = id3;
 		}
 	}
+		
+	if (gameMode != 1) {
+		document.body.appendChild(tableA);
+	}
+	
 	document.body.appendChild(tableE);
 
-	if (gameMode == 1) {
-		document.body.innerHTML += buttons1;
+	if (gameMode == 1) { 
+		selectAi(s1 - 1, s2 - 1);
 	}
 	else if (gameMode == 2) {
-		document.body.innerHTML += buttons;
+		document.body.innerHTML += resetb;
+		addEvents();
+		addPlayerEvent();
 	}
-	else {
-		for (var i = 0; i &lt; 42; i++) {
-			(function (i) {
-				setTimeout(moveRandom, 1000*i);
-			})(i);
+	else if (gameMode == 3) {
+		document.body.innerHTML += resetbx;
+		if (s1 == 10) {
+			addEvents();
+			if (s2 == 2) {
+				addAiEvent();
+			}
+			if (s2 == 3) {
+				addAi1Event();
+			}
+			if (s2 == 4) {
+				addAi2Event();
+			}
 		}
-	}
+		else if (s2 == 10) {
+			addEvents1();
+			if (s1 == 2) {
+				addAiEvent();
+				moveRandom(2);
+			}
+			if (s1 == 3) {
+				addAi1Event();
+				moveTree(2);
+			}
+			if (s1 == 4) {
+				addAi2Event();
+				moveStrongTree(2);
+			}
 
-}
-</code></pre>
+		}
+		
+	}	
+
+}</code></pre>
         </article>
     </section>
 
@@ -119,13 +151,13 @@ function Create() {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Create">Create</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Game.html">Game</a></li></ul><h3>Global</h3><ul><li><a href="global.html#countOpen3">countOpen3</a></li><li><a href="global.html#Create">Create</a></li><li><a href="global.html#fightAi">fightAi</a></li><li><a href="global.html#fightAi1">fightAi1</a></li><li><a href="global.html#fir">fir</a></li><li><a href="global.html#getPossibleMoves">getPossibleMoves</a></li><li><a href="global.html#getRandInt">getRandInt</a></li><li><a href="global.html#getWinner">getWinner</a></li><li><a href="global.html#move">move</a></li><li><a href="global.html#reset">reset</a></li><li><a href="global.html#state">state</a></li><li><a href="global.html#update">update</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat Nov 04 2017 16:43:04 GMT-0700 (PDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Nov 30 2017 19:54:03 GMT-0600 (CST)
 </footer>
 
 <script> prettyPrint(); </script>
