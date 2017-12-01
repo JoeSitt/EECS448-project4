@@ -40,7 +40,7 @@ class treeBot extends Ai {
     constructor() {
       super();
       this.m=function(gameboard){
-        return getNextMove(gameboard, 7, true);
+        return getNextMove(gameboard, 9, true);
       }
         this.name="Grootbot";
     }
@@ -50,7 +50,7 @@ class betterTreeBot extends Ai {
     constructor() {
       super();
       this.m=function(gameboard){
-        return getNextMove(gameboard, 7, true, true);
+        return getNextMove(gameboard, 9, true, true);
       }
         this.name="Grooterbot";
     }
