@@ -1,0 +1,17 @@
+Bugs that we are aware of
+
+Mobile issues:
+Our previous working project was able to be played on mobile. 
+With the recent changes, the computational challenges of 
+the AI tree search make this process slow. In addition to this,
+the board piece placement does not work (piece just hovers).
+
+AI defense:
+Tree based AIs have at times demonstrated a hesitancy to prevent winning
+moves at times. The tree based search should very readily deduce that this is a strong
+move for the opponent, and make an attempt to counter it.
+
+AI immediate win:
+Tree based AIs have at times hesitated to secure a win immediatly. This is likely caused
+by it deducing that two paths in the decision tree produce a guaranteed win, and thus they
+are given the same score weight. A more realistic AI would immediatly secure the win.
