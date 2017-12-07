@@ -24,5 +24,13 @@ Design, style changes: Changed the design of the board, and the pages. 3 hours
 Disc dropping feature: When dropping the disc on the board, a dropping animation happens. 12 hours
 Integrating Ai and fixing bugs: Integrated new Ais so the users can play against it, and other Ais can too. 6 hours
 New Select Players feature: Allows users to select Player 1 and Player 2. 6 hours
+Tree based AI: Minimax. 6 hours
+Alpha Beta pruning: prune decision tree to save time. 4 hours
+Heuristic: Implement heuristic for ranking non-terminal games. 5 hours
+
 User's Manual: Document that gives instructions on how to use the product. 1 hour
 Deployment Plan: Plan on how to get our product into market. 2 hours
+Maintenance Plan: Estimate cost of maintaining product. 2 hours
+Bug List: Account for all known problems with product. 1 hour
+Gantt chart: Update project 3 chart. 1 hour
+
